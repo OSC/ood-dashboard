@@ -1,0 +1,11 @@
+---
+Files:
+  - { path: <%= Dir.home %>, title: Home Directory, icon: fa fa-home }
+
+Clusters:
+  <% OodAppkit.clusters.hpc.select {|k,c| c.login_server? }.each do |k,c| %>
+  - { url: <%= OodAppkit.shell.url(host: c.login_server.host) %>, icon: fa fa-terminal }
+  <% end %>
+
+Logged in as <%= User.new.name %>:
+  - { title: Logout, url: "#", icon: fa fa-power-off }
