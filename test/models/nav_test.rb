@@ -6,8 +6,8 @@ class NavTest < ActiveSupport::TestCase
     c = Nav::Category.create("Clusters", [{path: "/1"}, {path: "/2"}])
     assert_instance_of Nav::Category, c
     assert_equal 2, c.links.count
-    assert_instance_of Path, c.links.first
-    assert_instance_of Path, c.links.last
+    assert_instance_of Nav::Path, c.links.first
+    assert_instance_of Nav::Path, c.links.last
   end
 
   test "link creation" do
