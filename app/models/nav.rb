@@ -1,4 +1,10 @@
 class Nav
+  def self.categories(config={})
+    config.reduce([]) do |categories, (k, v)|
+      categories << Category.create(k, v)
+    end
+  end
+
   class Base
     attr_accessor :title, :url, :icon, :owner, :app, :path
 
@@ -46,7 +52,7 @@ class Nav
         else
           Link.new(value)
         end
-      elsif(value.kind_of?(String))
+      elsif(value.kind_of?(String) || value.kind_of?(Symbol))
         (value == "logout" || value == :logout) ? Nav::Logout.new : Nav::Separator.new
       else
       end
@@ -54,6 +60,9 @@ class Nav
   end
 
   class App < Link
+    def owner
+      @owner ||= :sys
+    end
   end
 
   class Path < Link
