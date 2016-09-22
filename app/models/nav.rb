@@ -1,6 +1,6 @@
 class Nav
   class Base
-    attr_accessor :title, :url, :icon, :owner, :sys, :path
+    attr_accessor :title, :url, :icon, :owner, :app, :path
 
     def to_partial_path
       "shared/#{self.class.name.underscore}"
