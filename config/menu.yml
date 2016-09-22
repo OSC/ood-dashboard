@@ -1,0 +1,32 @@
+---
+Files:
+  - { path: <%= Dir.home %>, title: Home Directory, icon: fa fa-home }
+  <%= User.new.project_space_paths.map {|p| "- path: #{p}" }.join("\n") %>
+  <%# User.new.scratch_space_paths.map {|p| "- path: #{p}" }.join("\n") %>
+
+Jobs:
+  - { app: myjobs, owner: sys, title: My Jobs, icon: fa fa-tasks }
+  - { app: activejobs, owner: sys, title: Active Jobs, icon: fa fa-tasks }
+
+Clusters:
+  <% OodAppkit.clusters.hpc.select {|k,c| c.login_server? }.each do |k,c| %>
+  - { url: <%= OodAppkit.shell.url(host: c.login_server.host) %>, icon: fa fa-terminal }
+  <% end %>
+  - separator
+  - { app: systemstatus, owner: sys, title: System Status, icon: fa fa-tachometer }
+
+Apps:
+  Virtual Desktop Interface:
+    - { title: Oakley VDI, url: /pun/sys/oakley_vdi, icon: fa fa-desktop }
+  Compute Node Session:
+    - { title: Oakley Desktop, url: /pun/sys/oakley_desktop, icon: fa fa-desktop }
+    - { title: Abaqus/CAE, url: /pun/sys/abaqus_cae, icon: logo-14x14-abaqus.png }
+
+Help:
+  - { title: Contact Support, url: "https://www.osc.edu/contact/supercomputing_support", icon: fa fa-question-circle }
+  - { title: Online Documentation, url: "https://www.osc.edu/ondemand", icon: fa fa-info-circle }
+
+Logged in as <%= User.new.name %>:
+  - { title: Change OSC Password, url: "https://my.osc.edu", icon: fa fa-gear }
+  - separator
+  - { title: Logout, url: "#", icon: fa fa-power-off }
