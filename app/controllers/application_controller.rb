@@ -3,7 +3,13 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  before_filter :set_user, :set_logout_url
+  before_filter :set_user, :set_logout_url, :set_nav_categories
+
+  def set_nav_categories
+    config = Rails.root.join("config/nav.yml")
+    yaml = ERB.new(Pathname.new(config).read).result
+    @nav_categories = Nav.categories(YAML.load(yaml))
+  end
 
   def set_user
     @user = User.new
