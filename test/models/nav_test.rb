@@ -18,4 +18,13 @@ class NavTest < ActiveSupport::TestCase
     assert_instance_of Nav::Logout, Nav::Link.create("logout")
   end
 
+  test "to_partial_path" do
+    assert_equal "shared/nav/app", Nav::App.new.to_partial_path
+    assert_equal "shared/nav/category", Nav::Category.new.to_partial_path
+    assert_equal "shared/nav/link", Nav::Link.new.to_partial_path
+    assert_equal "shared/nav/path", Nav::Path.new.to_partial_path
+    assert_equal "shared/nav/separator", Nav::Separator.new.to_partial_path
+    assert_equal "shared/nav/logout", Nav::Logout.new.to_partial_path
+  end
+
 end
