@@ -1,6 +1,11 @@
 # OSC
 NavConfig.categories << "Desktop Apps"
 
+NavConfig.help_dropdown_links.tap do |dd|
+  dd << NavLink.new(icon: 'question-circle', text: 'Contact Support', url: "https://www.osc.edu/contact/supercomputing_support")
+  dd << NavLink.new(icon: 'info-circle', text: 'Online Documentation', url: )
+end
+
 OodFilesApp.candidate_favorite_paths.tap do |paths|
   # add project space directories
   projects = User.new.groups.map(&:name).grep(/^P./)
