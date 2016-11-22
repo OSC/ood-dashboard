@@ -14,4 +14,17 @@ class PathRouter
   def owner
     @owner ||= Etc.getpwuid(path.stat.uid).name
   end
+
+  def self.apps(parent, require_manifest: true)
+    target = Pathname.new(parent)
+    if target.directory? && target.executable? && target.readable?
+      target.children.map { |d|
+        ::OodApp.new(self.new(d))
+      }.select { |d|
+        d.valid_dir? && d.accessible? && (!require_manifest || d.manifest.valid?)
+      }
+    else
+      []
+    end
+  end
 end
