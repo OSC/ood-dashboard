@@ -73,7 +73,8 @@ class OodApp
   #
   # @return [String] url (either ssh or https)
   def git_remote_origin_url
-    `GIT_DIR=#{path}/.git git ls-remote --get-url`.strip
+    #FIXME: copied from Product@get_git_remote
+    `cd #{path} 2> /dev/null && HOME="" git config --get remote.origin.url 2> /dev/null`.strip
   end
 
   # Get the owner, group, and octal access rights via stat on the app directory
