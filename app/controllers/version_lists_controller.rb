@@ -4,7 +4,7 @@ class VersionListsController < ApplicationController
 
   def show
     @path = params[:path] || SysRouter.base_path
-    @apps = PathRouter.apps(@path).sort_by(&:name)
+    @apps = PathRouter.apps(@path, require_manifest: false).sort_by(&:name)
 
     respond_to do |format|
       format.html  # show.index.erb
