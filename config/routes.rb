@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  get 'version_lists/index'
+  get 'version_lists/show'
+
   get "errors/not_found"
   get "errors/internal_server_error"
   get "dashboard/index"
