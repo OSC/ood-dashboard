@@ -58,8 +58,22 @@ class OodApp
   # Get the output of `git describe`
   #
   # @return [String] tag or branch or sha
-  def version
+  def git_version
     `GIT_DIR=#{path}/.git git describe --always --tags`.strip
+  end
+
+  # Get the current commit sha
+  #
+  # @return [String] sha of the HEAD
+  def git_sha
+    `GIT_DIR=#{path}/.git git rev-parse HEAD`.strip
+  end
+
+  # Get the url of the remote origin
+  #
+  # @return [String] url (either ssh or https)
+  def git_remote_origin_url
+    `GIT_DIR=#{path}/.git git ls-remote --get-url`.strip
   end
 
   # Get the owner, group, and octal access rights via stat on the app directory
