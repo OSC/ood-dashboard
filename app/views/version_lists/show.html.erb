@@ -1,2 +1,31 @@
-<h1>VersionLists#show</h1>
+<h1>Versions <small><%= @path %></small></h1>
 <p>Find me in app/views/version_lists/show.html.erb</p>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Remote</th>
+      <th>Version</th>
+      <th>Sha</th>
+      <th>User</th>
+      <th>Group</th>
+      <th>Access Rights</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @apps.each do |app| %>
+    <tr>
+      <td><%= app.name %></td>
+      <td><%= app.git_remote_origin_url %></td>
+      <td><%= app.git_version %></td>
+      <td><%= app.git_sha %></td>
+      <td><%= app.stat[:user] %></td>
+      <td><%= app.stat[:group] %></td>
+      <td><%= app.stat[:permissions] %></td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
