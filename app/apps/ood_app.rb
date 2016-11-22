@@ -66,7 +66,7 @@ class OodApp
   #
   # @return [String] sha of the HEAD
   def git_sha
-    `GIT_DIR=#{path}/.git git rev-parse HEAD`.strip
+    `GIT_DIR=#{path}/.git git rev-parse --short HEAD`.strip
   end
 
   # Get the url of the remote origin
