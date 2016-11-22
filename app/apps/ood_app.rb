@@ -55,6 +55,24 @@ class OodApp
     path.join("icon.png")
   end
 
+  # Get the output of `git describe`
+  #
+  # @return [String] tag or branch or sha
+  def version
+    `GIT_DIR=#{path}/.git git describe --always --tags`.strip
+  end
+
+  # Get the owner, group, and octal access rights via stat on the app directory
+  #
+  # @return [Hash] with user, group, and permissions
+  def stat
+    {
+      user: OodSupport::User.new(path.stat.uid).name,
+      group: OodSupport::Group.new(path.stat.gid).name,
+      permissions: "%o" % path.stat.mode
+    }
+  end
+
   class SetupScriptFailed < StandardError; end
   # run the production setup script for setting up the user's
   # dataroot and database for the current app, if the production
