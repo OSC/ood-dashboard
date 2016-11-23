@@ -1,2 +1,54 @@
 <h1>VersionLists#index</h1>
 <p>Find me in app/views/version_lists/index.html.erb</p>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Build</th>
+      <th>Deploy</th>
+      <th>Compare</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @apps.group_by(&:name).each do |name, apps| %>
+    <%# TODO: git remotes could differ %>
+    <%# TODO: tests are good idea %>
+    <% if apps.first.git_version != apps.last.git_version %>
+    <tr>
+      <td><%= name %></td>
+      <td>
+        <dl class="dl-horizontal">
+          <dt>Remote:</dt><dd><%= apps.first.git_remote_origin_url %></dd>
+          <dt>Sha:</dt><dd><%= apps.first.git_sha %></dd>
+          <dt>Version:</dt><dd><%= apps.first.git_version %></dd>
+          <dt>Path:</dt><dd><%= apps.first.path %></dd>
+        </dl>
+      </td>
+      <td>
+        <dl class="dl-horizontal">
+          <dt>Remote:</dt><dd><%= apps.last.git_remote_origin_url %></dd>
+          <dt>Sha:</dt><dd><%= apps.last.git_sha %></dd>
+          <dt>Version:</dt><dd><%= apps.last.git_version %></dd>
+          <dt>Path:</dt><dd><%= apps.last.path %></dd>
+        </dl>
+      </td>
+      <td>
+        <p><%= compare_versions_github_link(apps.last, apps.first) %></p>
+        <p><%# compare_versions_github_link(apps.first, apps.last) %></p>
+      </td>
+    </tr>
+    <% else %>
+      <%# FIXME: if versions same but remotes differ, this doesn't do anything %>
+      <tr class="text-muted">
+        <td><%= name %></td>
+        <td colspan="3">
+          Same version:
+          <%= "#{apps.first.git_remote_origin_url} - #{apps.first.git_sha} - #{apps.first.git_version}"%>
+        </td>
+      </tr>
+    <% end %>
+  <% end %>
+  </tbody>
+</table>
