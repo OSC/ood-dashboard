@@ -13,9 +13,23 @@
 
   <tbody>
   <% @apps.group_by(&:name).each do |name, apps| %>
-    <%# TODO: git remotes could differ %>
-    <%# TODO: tests are good idea %>
-    <% if apps.first.git_version != apps.last.git_version %>
+    <% if apps.count != 2 %>
+    <tr>
+      <td><%= name %></td>
+      <td colspan="3">
+        2 apps not avail to compare:
+
+        <% apps.each do |app| %>
+        <dl class="dl-horizontal">
+          <dt>Remote:</dt><dd><%= app.git_remote_origin_url %></dd>
+          <dt>Sha:</dt><dd><%= app.git_sha %></dd>
+          <dt>Version:</dt><dd><%= app.git_version %></dd>
+          <dt>Path:</dt><dd><%= app.path %></dd>
+        </dl>
+        <% end %>
+      </td>
+    </tr>
+    <% elsif apps.first.git_version != apps.last.git_version %>
     <tr>
       <td><%= name %></td>
       <td>
