@@ -33,6 +33,6 @@ class VersionListsController < ApplicationController
   private
 
   def apps(path = SysRouter.base_path)
-    PathRouter.apps(path, require_manifest: false).sort_by(&:name)
+    PathRouter.apps(path || SysRouter.base_path, require_manifest: false).sort_by(&:name)
   end
 end
