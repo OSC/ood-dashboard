@@ -57,9 +57,10 @@
       <%# FIXME: if versions same but remotes differ, this doesn't do anything %>
       <tr class="text-muted">
         <td><%= name %></td>
-        <td colspan="3">
-          Same version:
-          <%= "#{apps.first.git_remote_origin_url} - #{apps.first.git_sha} - #{apps.first.git_version}"%>
+        <td><%= apps.first.git_version %></td>
+        <td><%= apps.last.git_version %></td>
+        <td>
+          <%= "#{apps.first.git_remote_origin_url} - #{apps.first.git_sha}"%>
         </td>
       </tr>
     <% end %>
