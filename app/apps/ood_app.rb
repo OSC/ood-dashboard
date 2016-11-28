@@ -82,7 +82,6 @@ class OodApp
     repo = git_remote_origin_url.scan(/((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)([\w\.@\:\/\-~]+)(\.git)(\/)?/)
     # ex. https://badge.fury.io/gh/osc%2Food-fileeditor.svg
     "https://badge.fury.io/gh/#{repo[0][6].gsub("/", "%2F")}.svg"
-    #repo[0][6]
   end
 
   # Get the owner, group, and octal access rights via stat on the app directory
