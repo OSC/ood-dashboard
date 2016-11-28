@@ -77,6 +77,13 @@ class OodApp
     `cd #{path} 2> /dev/null && HOME="" git config --get remote.origin.url 2> /dev/null`.strip
   end
 
+  def badge_url
+    # Borrowed from https://www.debuggex.com/r/H4kRw1G0YPyBFjfm
+    repo = git_remote_origin_url.scan(/((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)([\w\.@\:\/\-~]+)(\.git)(\/)?/)
+    # ex. https://badge.fury.io/gh/osc%2Food-fileeditor.svg
+    "https://badge.fury.io/gh/#{repo[0][6].gsub("/", "%2F")}.svg"
+  end
+
   # Get the owner, group, and octal access rights via stat on the app directory
   #
   # @return [Hash] with user, group, and permissions

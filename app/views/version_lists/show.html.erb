@@ -17,7 +17,8 @@
         <dl class="dl-horizontal">
           <dt>Remote:</dt><dd><%= app.git_remote_origin_url %></dd>
           <dt>Sha:</dt><dd><%= app.git_sha %></dd>
-          <dt>Version:</dt><dd><%= app.git_version %></dd>
+          <dt>Installed Version:</dt><dd><%= app.git_version %></dd>
+          <dt>Current Version:</dt><dd><img src="<%= app.badge_url %>"></dd>
           <dt>User:</dt><dd><%= app.stat[:user] %></dd>
           <dt>Group:</dt><dd><%= app.stat[:group] %></dd>
           <dt>Access Rights:</dt><dd><%= app.stat[:permissions] %></dd>
