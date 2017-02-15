@@ -6,7 +6,9 @@
 
 <div class="row">
   <div class="col-md-9">
+    <div class="row"> 
     <%= render partial: 'group', collection: @nav_groups %>
+    </div>
   </div>
   <div class="col-md-3">
     <%= render partial: "motd", locals: { motd: @motd_file  } if @motd_file.exist? %>
