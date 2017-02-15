@@ -32,10 +32,24 @@ tr.app {
   font-size: 50px;
 }
 
+.list-group .app-icon{
+   width: 14px;
+   height: 14px;
+   font-size: 14px;
+}
+
 .navbar .app-icon {
    width: 14px;
    height: 14px;
    font-size: 14px;
+}
+
+.list-group-item.header {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  color: #777;
+  font-size: 12px;
+  background-color: #eee;
 }
 
 // awesim colors - FIXME: aweful lot for a list of colors to cycle through
