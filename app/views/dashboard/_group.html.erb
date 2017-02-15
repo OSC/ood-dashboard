@@ -1,5 +1,8 @@
 <h2 class="apps-section-header-blue"><%= group.title %></h2>
 
-<div class="row">
-  <%= render partial: "app", collection: group.apps %>
-</div>
+<% OodAppGroup.groups_for(apps: group.apps, group_by: :subcategory).each_with_index do |g, index| %>
+  <%= content_tag "h3", g.title, class: "apps-section-header" unless g.title.empty? %>
+  <div class="row">
+    <%= render partial: "app", collection: g.apps %>
+  </div>
+<% end %>
