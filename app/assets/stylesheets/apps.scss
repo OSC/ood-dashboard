@@ -46,6 +46,12 @@ tr.app {
   background-color: rgb(0, 95, 133);
 }
 
+h3.apps-section-header {
+  @extend .apps-section-header;
+
+  font-size: 16px;
+}
+
 .apps-section-header-red {
   @extend .apps-section-header;
   background-color: rgb(196, 32, 50);
