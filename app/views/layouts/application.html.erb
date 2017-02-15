@@ -23,9 +23,8 @@
       </div>
       <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-9">
         <ul class="nav navbar-nav">
-          <%= content_tag(:li, class: current_page?(root_path) ? "active" : "") { link_to 'Home', root_path  } if NavConfig.show_home_link %>
-          <%= render partial: 'layouts/nav/group', collection: @nav_groups %>
-          <%= render partial: 'layouts/nav/develop_dropdown' if NavConfig.show_develop_dropdown %>
+
+          <%= content_tag(:li, class: current_page?(root_path) ? "active" : "") { link_to 'Apps', root_path  } %>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <%= render partial: "layouts/nav/help_dropdown" %>
