@@ -1,0 +1,30 @@
+<h1>Apps deployed at: <small><%= @path %></small></h1>
+
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+
+  <tbody>
+  <% @apps.each do |app| %>
+    <tr>
+      <td><%= app.name %></td>
+      <td>
+        <dl class="dl-horizontal">
+          <dt>Remote:</dt><dd><%= app.git_remote_origin_url %></dd>
+          <dt>Sha:</dt><dd><%= app.git_sha %></dd>
+          <dt>Installed Version:</dt><dd><%= app.git_version %></dd>
+          <dt>Current Version:</dt><dd><img src="<%= app.badge_url %>"></dd>
+          <dt>User:</dt><dd><%= app.stat[:user] %></dd>
+          <dt>Group:</dt><dd><%= app.stat[:group] %></dd>
+          <dt>Access Rights:</dt><dd><%= app.stat[:permissions] %></dd>
+        </dl>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>

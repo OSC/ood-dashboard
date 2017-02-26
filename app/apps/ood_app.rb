@@ -68,6 +68,46 @@ class OodApp
     path.join("icon.png")
   end
 
+  # Get the output of `git describe`
+  #
+  # @return [String] tag or branch or sha
+  def git_version
+    `GIT_DIR=#{path}/.git git describe --always --tags`.strip
+  end
+
+  # Get the current commit sha
+  #
+  # @return [String] sha of the HEAD
+  def git_sha
+    `GIT_DIR=#{path}/.git git rev-parse --short HEAD`.strip
+  end
+
+  # Get the url of the remote origin
+  #
+  # @return [String] url (either ssh or https)
+  def git_remote_origin_url
+    #FIXME: copied from Product@get_git_remote
+    `cd #{path} 2> /dev/null && HOME="" git config --get remote.origin.url 2> /dev/null`.strip
+  end
+
+  def badge_url
+    # Borrowed from https://www.debuggex.com/r/H4kRw1G0YPyBFjfm
+    repo = git_remote_origin_url.scan(/((git|ssh|http(s)?)|(git@[\w\.]+))(:(\/\/)?)([\w\.@\:\/\-~]+)(\.git)(\/)?/)
+    # ex. https://badge.fury.io/gh/osc%2Food-fileeditor.svg
+    "https://badge.fury.io/gh/#{repo[0][6].gsub("/", "%2F")}.svg"
+  end
+
+  # Get the owner, group, and octal access rights via stat on the app directory
+  #
+  # @return [Hash] with user, group, and permissions
+  def stat
+    {
+      user: OodSupport::User.new(path.stat.uid).name,
+      group: OodSupport::Group.new(path.stat.gid).name,
+      permissions: "%o" % path.stat.mode
+    }
+  end
+
   class SetupScriptFailed < StandardError; end
   # run the production setup script for setting up the user's
   # dataroot and database for the current app, if the production
