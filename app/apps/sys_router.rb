@@ -45,7 +45,7 @@ class SysRouter
   end
 
   def caption
-    "System Installed App"
+    nil
   end
 
   def category
