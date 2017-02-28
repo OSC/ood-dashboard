@@ -1,3 +1,4 @@
+<%# TODO: list-group-item-special class if caption exists: background-color #eef7fb %>
 <%= link_to app_path(app.name, app.type, app.owner), class: "list-group-item", data: {
     toggle: "popover",
     content: manifest_markdown(app.manifest.description),
@@ -7,4 +8,5 @@
     container: "body"
 } do %>
   <%= app_icon_tag(app) %> <%= app.title %>
+  <%= "<br><small class='text-muted'>#{app.caption}</small>".html_safe if app.caption %>
 <% end %>
