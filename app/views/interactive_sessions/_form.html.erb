@@ -1,0 +1,4 @@
+<%= bootstrap_form_for(interactive_session) do |f| %>
+  <%= f.hidden_field :host, value: 'quick' %>
+  <%= f.submit 'Create', class: 'btn btn-primary btn-block' %>
+<% end %>

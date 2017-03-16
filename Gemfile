@@ -54,3 +54,7 @@ gem 'mocha', '~> 1.1', group: :test
 # OOD specific gems
 gem 'ood_support', '~> 0.0.2'
 gem 'ood_appkit', '~> 0.3.2'
+
+# InteractiveJob specific gems
+gem 'ood_job', git: 'https://github.com/OSC/ood_job.git'
+gem 'batch_connect', git: 'https://github.com/OSC/batch_connect.git'

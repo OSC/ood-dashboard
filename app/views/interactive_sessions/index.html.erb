@@ -1,0 +1,38 @@
+<div class="page-header">
+  <h2>Interactive Sessions</h2>
+</div>
+
+<div class="row">
+  <div class="col-md-3">
+    <%= render partial: 'form', locals: { interactive_session: @new_interactive_session } %>
+  </div><!-- /.col-md-3 -->
+
+  <div class="col-md-9">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Job id</th>
+          <th>Status</th>
+          <th colspan="2"></th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <% @interactive_sessions.each do |interactive_session| %>
+          <tr>
+            <td><%= interactive_session.host %></td>
+            <td><%= interactive_session.job_id %></td>
+            <td><%= display_status interactive_session %></td>
+            <td><%= link_to 'Launch', interactive_session.connect.render(:novnc), class: 'btn btn-primary', target: '_blank' if interactive_session.running? %></td>
+            <td><%= link_to 'Destroy', interactive_session, class: 'btn btn-danger', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div><!-- /.col-md-9 -->
+</div><!-- /.row -->
+
+<br>
+
+<%# <%= link_to 'New Interactive session', new_interactive_session_path %1> %>

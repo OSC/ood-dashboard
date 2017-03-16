@@ -1,0 +1,1 @@
+json.array! @interactive_sessions, partial: 'interactive_sessions/interactive_session', as: :interactive_session

@@ -22,3 +22,8 @@
 
 # Ignore staged app
 /vendor/my_app
+
+# Ignore interactive session data
+/data/db
+/data/output
+/data/staged
