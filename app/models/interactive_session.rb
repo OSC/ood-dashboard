@@ -10,12 +10,10 @@ class InteractiveSession
     end
 
     def all
-      database_path.children.select(&:file?).map{ |f| new.from_json(f.read) }.map do |s|
-        if s.completed?
-          s.destroy && nil
-        else
-          s
-        end
+      database_path.children.select(&:file?).map do |f|
+        new.from_json(f.read)
+      end.map do |s|
+        s.completed? && s.destroy ? nil : s
       end.compact
     end
 
