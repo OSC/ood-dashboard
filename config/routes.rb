@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :interactive_sessions, only: [:index, :create, :destroy]
   get "errors/not_found"
   get "errors/internal_server_error"
   get "dashboard/index"
