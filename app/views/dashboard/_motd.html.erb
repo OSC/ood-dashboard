@@ -1,18 +1,29 @@
 <h3>Message of the Day</h3>
 
-<% if motd.messages.each do |m| %>
+<% if motd.exist? %>
 
-  <hr>
-  <div class="motd">
-    <h4 class="motd_title"><%= m.date %> - <%= m.title %></h4>
-    <div class="motd_body"><p><%=raw markdown( m.body ) %></p></div>
-  </div>
+  <% if motd.messages.each do |m| %>
 
-<% end.empty? %>
+    <hr>
+    <div class="motd">
+      <h4 class="motd_title"><%= m.date %> - <%= m.title %></h4>
+      <div class="motd_body"><p><%=raw markdown( m.body ) %></p></div>
+    </div>
 
-  <hr>
-  <div class="motd">
-    <h4 class="motd_title">There are no new messages.</h4>
-  </div>
+  <% end.empty? %>
+
+    <hr>
+    <div class="motd">
+      <h4 class="motd_title">There are no new messages.</h4>
+    </div>
+
+  <% end %>
+
+<% else %>
+
+    <hr>
+    <div class="motd">
+      <h4 class="motd_title">No messages available.</h4>
+    </div>
 
 <% end %>
