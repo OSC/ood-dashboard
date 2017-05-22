@@ -1,5 +1,5 @@
 class MotdFile
-  attr_reader :motd_system_file
+  attr_reader :motd_system_file, :motd_text_format
 
   Message = Struct.new :date, :title, :body do
     def self.from(str)
@@ -16,52 +16,77 @@ class MotdFile
   end
   # Initialize the Motd Controller object based on the current user.
   #
+  # @param [String] path The path to the motd file on disk
+  # @param [String] format The formatter to use when parsing the motd
   # @param [boolean] update_user_view_timestamp True to update the last viewed timestamp. (Default: false)
-  def initialize(path = ENV['MOTD_PATH'], update_user_view_timestamp: false)
+  def initialize(path = ENV['MOTD_PATH'], format = ENV['MOTD_FORMAT'], update_user_view_timestamp: false)
     @motd_system_file = path
-
-    touch if update_user_view_timestamp
-  end
-
-  # An empty file whose modification timestamp indicates the last time the user
-  # viewed the motd messages. This is useful for when we want to use the file
-  # system to determine when new messages the user has not seen have been
-  # added to the motd.
-  def motd_config_file
-    @motd_config_file ||= OodAppkit.dataroot.join(".motd")
+    @motd_text_format = format
   end
 
   def exist?
     motd_system_file && File.file?(motd_system_file)
   end
 
-  # If the motd file hasn't been created on the system, or if the system motd is newer than the user's file, return true.
-  def new_messages?
-    # FIXME: Use if/else statements because this is arcane
-    (messages.count > 0) ? ( !File.exist?(motd_config_file) ? true : File.new(motd_system_file).ctime > File.new(motd_config_file).ctime ? true : false ) : false   
-  end
-
   # Create an array of message objects based on the current message of the day.
   def messages
-    f = File.read motd_system_file
+    file_content = File.read motd_system_file
 
-    # get array of sections which are delimited by a row of ******
-    sections = f.split(/^\*+$/).map(&:strip).select { |x| ! x.empty?  }
-    sections.map { |s| MotdFile::Message.from(s) }.compact.sort_by {|s| s.date }.reverse
+    case @motd_text_format
+    when 'osc'
+      parse_osc(file_content)
+    when 'markdown'
+      parse_markdown(file_content)
+    else
+      parse_text(file_content)
+    end
   rescue Errno::ENOENT
     # The messages file does not exist on the system.
     Rails.logger.warn "MOTD File is missing; it was expected at #{motd_system_file}"
     []
   end
 
-  # The system will use a file called '.motd' to track when the user last was alerted to messages.
-  # This method should be called when the message of the day page is checked so that the dashboard knows when
-  # the user last viewed the page.
+  private
+
+    # Parse the MOTD in OSC style
+    # See: https://github.com/OSC/ood-dashboard/wiki/Message-of-the-Day
+    #
+    # @param [String] content The content to be parsed
+  # @return [String] The text formatted to html
+    def parse_osc(content)
+      # get array of sections which are delimited by a row of ******
+      sections = content.split(/^\*+$/).map(&:strip).select { |x| ! x.empty?  }
+      messages = sections.map { |s| MotdFile::Message.from(s) }.compact.sort_by {|s| s.date }.reverse
+
+      ApplicationController.new.render_to_string(
+          :partial => 'dashboard/motd_osc',
+          :locals => { :messages => messages }
+      )
+    end
+
+  # Parse the MOTD in markdown using Redcarpet gem
   #
-  # Calling self.touch will create the .motd file, or update the timestamp if it already exists.
-  def touch
-    FileUtils.mkdir_p(File.dirname(motd_config_file)) unless File.exists?(motd_config_file)
-    FileUtils.touch(motd_config_file)
-  end
-    
+  # @param [String] content The content to be parsed
+  # @return [String] The text formatted to html
+    def parse_markdown(content)
+      messages = OodAppkit.markdown.render(content)
+
+      ApplicationController.new.render_to_string(
+          :partial => 'dashboard/motd_markdown',
+          :locals => { :messages => messages }
+      )
+    end
+
+  # Parse the MOTD in plain text
+  #
+  # @param [String] content The content to be parsed
+  # @return [String] The text formatted to html
+    def parse_text(content)
+      messages = content
+
+      ApplicationController.new.render_to_string(
+          :partial => 'dashboard/motd_text',
+          :locals => { :messages => messages }
+      )
+    end
 end
