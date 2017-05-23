@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   get "errors/not_found"
   get "errors/internal_server_error"
   get "dashboard/index"
+  get "/favorite_paths" => "dashboard#favorite_paths", as: 'favorite_paths'
   get "logout" => "dashboard#logout"
 
 
