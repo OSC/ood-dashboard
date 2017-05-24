@@ -16,6 +16,7 @@
 //= require dataTables/jquery.dataTables
 //= require dataTables/bootstrap/3/jquery.dataTables.bootstrap
 //= require data-confirm-modal
+//= require js-routes
 //= require_tree .
 
 //FIXME: move to coffescript

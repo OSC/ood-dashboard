@@ -6,7 +6,7 @@
 $ ->
   # Load the additional paths into the view after page load
   $.ajax
-    url: 'favorite_paths'
+    url: Routes.favorite_paths_path()
     success: (data) ->
       $('#dropdown-files .dropdown-menu').append data.html
       return
