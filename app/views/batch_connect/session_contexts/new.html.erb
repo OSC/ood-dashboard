@@ -5,7 +5,26 @@
   <li>
     <%= link_to "Interactive Sessions", batch_connect_sessions_path %>
   </li>
-  <li class="active">New <%= @app.title if @app %> Session</li>
+
+  <%# Show dropdown on breadcrumbs to access apps %>
+  <% if @app && @sub_apps.size > 1 %>
+    <li class="active dropdown">
+      <%= link_to "#{@app.title} <span class=\"caret\"></span>".html_safe, "#", class: "dropdown-toggle", data: { toggle: "dropdown" } %>
+      <ul class="dropdown-menu">
+        <% @sub_apps.each do |sub_app| %>
+          <li class="<%= "active" if @app == sub_app %> <%= "disabled" unless sub_app.valid? %>">
+            <% if sub_app.valid? %>
+              <%= link_to sub_app.title, new_batch_connect_session_context_path(token: sub_app.token) %>
+            <% else %>
+              <a data-toggle="tooltip" data-placement="bottom" title="<%= sub_app.validation_reason %>"><%= sub_app.title %></a>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% else %>
+    <li class="active"><%= @app ? @app.title : "New Session" %></li>
+  <% end %>
 </ol>
 
 
@@ -17,21 +36,6 @@
       </button>
       <%= session_save_errors @session.errors %>
     </div>
-  <% end %>
-
-  <%# More than one sub app so display tabs %>
-  <% if @sub_apps.size > 1 %>
-    <ul class="nav nav-tabs">
-      <% @sub_apps.each do |sub_app| %>
-        <li class="<%= "active" if @app == sub_app %> <%= "disabled" unless sub_app.valid? %>">
-          <% if sub_app.valid? %>
-            <%= link_to sub_app.title, new_batch_connect_session_context_path(token: sub_app.token) %>
-          <% else %>
-            <a data-toggle="tooltip" data-placement="bottom" title="<%= sub_app.validation_reason %>"><%= sub_app.title %></a>
-          <% end %>
-        </li>
-      <% end %>
-    </ul>
   <% end %>
 
   <div class="page-header">
