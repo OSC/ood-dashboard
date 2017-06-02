@@ -15,7 +15,8 @@ Rails.application.routes.draw do
     get "apps(/index(/:type(/:owner)))" => "apps#index", as: "apps", defaults: { type: "usr" }
     get "apps/restart" => "apps#restart"
 
-    root "apps#index", defaults: { type: "usr" }
+    root "dashboard#index"
+    # root "apps#index", defaults: { type: "usr" }
 
     # App administration
     scope 'admin/:type' do

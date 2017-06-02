@@ -3,17 +3,14 @@
 <p class="lead">OnDemand provides an integrated, single access point for all of your HPC resources.</p>
 <br>
 
-<%= render partial: "motd", locals: { motd: @motd_file  } if @motd_file.exist? %>
 
-<!--
-TODO: add getting started
 <div class="row">
-  <div class="col-md-8">
-    <h3>Getting Started</h3>
-    <hr>
+  <div class="col-md-9">
+    <div class="row"> 
+    <%= render partial: 'group', collection: @groups %>
+    </div>
   </div>
-  <div class="col-md-4">
-    <%# render partial: "motd", locals: { motd: MotdFile.new } %>
+  <div class="col-md-3">
+    <%= render partial: "motd", locals: { motd: @motd_file  } if @motd_file.exist? %>
   </div>
 </div>
--->
