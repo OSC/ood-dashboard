@@ -29,7 +29,7 @@
             <%= nav_link "#{c.metadata.title} Shell Access", "terminal", OodAppkit.shell.url(host: c.login.host), target: "_blank" %>
           <% end %>
 
-        <% elsif app.role == "batch_connect" %>
+        <% elsif app.batch_connect_app? %>
           <%# batch connect apps open in dashboard, so can open in same window %>
           <li class="<%= app.role %>"><a href="<%= app.url %>"><%= app_icon_tag(app) %> <%= app.title %></a></li>
         <% else %>
