@@ -1,5 +1,5 @@
 class SysRouter
-  attr_reader :name
+  attr_reader :name, :path
 
   #TODO: consider making SysRouter a subclass of
   # OodAppkit::Url
@@ -15,8 +15,16 @@ class SysRouter
     target = base_path
     if target.directory? && target.executable? && target.readable?
       base_path.children.map { |d|
-        ::OodApp.new(self.new(d.basename))
-      }.select { |d|
+        app = ::OodApp.new(self.new(d.basename))
+
+        # if the app directory does not contain a manifest, look for directories
+        # with valid manifests in the sub directories of this directory
+        if ! app.manifest.exist? && d.directory? && d.executable? && d.readable?
+          d.children.map { |subapp_dir| ::OodApp.new(self.new(subapp_dir.basename, subapp_dir))}
+        else
+          app
+        end
+      }.flatten.select { |d|
         d.valid_dir? && d.accessible? && (!require_manifest || d.manifest.valid?)
       }
     else
@@ -24,8 +32,9 @@ class SysRouter
     end
   end
 
-  def initialize(name)
+  def initialize(name, path = nil)
     @name = name.to_s
+    @path = path || self.class.base_path.join(name)
   end
 
   def token
@@ -54,9 +63,5 @@ class SysRouter
 
   def url
     "/pun/sys/#{name}"
-  end
-
-  def path
-    @path ||= self.class.base_path.join(name)
   end
 end
