@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Fixed
+
+  - Corrected file extension used for session context cache.
+
 ## 1.13.3 (2017-06-23)
 
 ### Fixed
