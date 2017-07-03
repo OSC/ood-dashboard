@@ -3,14 +3,20 @@ namespace :batch_connect do
   task new_session: :environment do
     # Read in user settings
     app = ENV["BC_APP_TOKEN"] || abort("Missing environment variable BC_APP_TOKEN")
-    ctx = ENV["BC_SESSION_CONTEXT"]
     fmt = ENV["BC_RENDER_FORMAT"]
+    ctx = if !$stdin.tty?
+            $stdin.read
+          elsif ENV["BC_SESSION_CONTEXT"]
+            File.read(ENV["BC_SESSION_CONTEXT"])
+          else
+            "{}"
+          end
 
     # Initialize objects
     app   = BatchConnect::App.from_token app
     fmt ||= app.cluster.job_config[:adapter] if app.cluster
     session_ctx = app.build_session_context
-    session_ctx.from_json( ctx ? File.read(ctx) : "{}" )
+    session_ctx.from_json(ctx)
 
     # Generate new session
     session = BatchConnect::Session.new
