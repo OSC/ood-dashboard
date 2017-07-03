@@ -20,6 +20,12 @@ namespace :batch_connect do
 
     # Generate new session
     session = BatchConnect::Session.new
-    session.save(app: app, context: session_ctx, format: fmt)
+    unless session.save(app: app, context: session_ctx, format: fmt)
+      error_msg = "Failed to launch session with following errors:\n\n"
+      session.errors.full_messages.each do |error|
+        error_msg += "  - #{error.gsub(/\n/, "\n    ")}\n\n"
+      end
+      abort error_msg
+    end
   end
 end
