@@ -93,8 +93,8 @@ See the wiki page https://github.com/OSC/ood-dashboard/wiki/App-Sharing
 You can launch an iHPC session by the command line using the provided rake
 task:
 
-```sh
-bin/rake batch_connect:new_session
+```
+batch_connect:new_session
 ```
 
 When you run the rake task, it will need to be run under the same environment
@@ -119,8 +119,12 @@ export RAILS_ENV=production
 export RAILS_RELATIVE_URL_ROOT=sys/dashboard
 
 # We launch our Owens desktop session
-bin/rake batch_connect:new_session BC_APP_TOKEN=sys/bc_desktop_v2/owens
+echo '{}' | bin/rake batch_connect:new_session BC_APP_TOKEN=sys/bc_desktop_v2/owens
 ```
+
+where you pipe in the JSON session context (basically a JSON representation of
+the form parameters you'd see in the web form when you tried to submit an iHPC
+session).
 
 If the session was launched successfully, then you should be able to navigate
 to the chosen Dashboard app in your browser and find your session under
@@ -129,10 +133,10 @@ to the chosen Dashboard app in your browser and find your session under
 ### Modify Session Context
 
 To modify the context that the session is launched with (e.g., modify number of
-nodes or walltime) you need to provide a JSON file with the settings you want
-to use.
+nodes or walltime) you need to provide a JSON formatted string to STDIN with
+the settings you want to use.
 
-For the case of the Owens desktop, a session context file can look like:
+For the case of the Owens desktop, a session context JSON string can look like:
 
 ```json
 {
@@ -145,14 +149,23 @@ For the case of the Owens desktop, a session context file can look like:
 }
 ```
 
-You can then launch and Owens desktop session with this JSON file as:
+You can then launch and Owens desktop session with this JSON string as:
 
 ```sh
 # Set environment for the Dashboard app of your choosing
 ...
 
 # Launch and Owens desktop session with user-defined context
-bin/rake batch_connect:new_session BC_APP_TOKEN=sys/bc_desktop_v2/owens BC_SESSION_CONTEXT=/path/to/context.json
+bin/rake batch_connect:new_session BC_APP_TOKEN=sys/bc_desktop_v2/owens <<-EOF
+{
+  "bc_num_hours": "1",
+  "bc_num_slots": "1",
+  "node_type": ":ppn=28",
+  "bc_account": "",
+  "bc_vnc_resolution": "2048x1152",
+  "bc_email_on_started": "0"
+}
+EOF
 ```
 
 ## Contributing

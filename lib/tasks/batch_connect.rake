@@ -4,13 +4,7 @@ namespace :batch_connect do
     # Read in user settings
     app = ENV["BC_APP_TOKEN"] || abort("Missing environment variable BC_APP_TOKEN")
     fmt = ENV["BC_RENDER_FORMAT"]
-    ctx = if !$stdin.tty?
-            $stdin.read
-          elsif ENV["BC_SESSION_CONTEXT"]
-            File.read(ENV["BC_SESSION_CONTEXT"])
-          else
-            "{}"
-          end
+    ctx = $stdin.read
 
     # Initialize objects
     app   = BatchConnect::App.from_token app

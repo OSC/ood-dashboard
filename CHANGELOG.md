@@ -1,5 +1,9 @@
 ## Unreleased
 
+### Added
+
+  - Can now submit iHPC session from command line using rake task.
+
 ## 1.13.3 (2017-06-23)
 
 ### Fixed
