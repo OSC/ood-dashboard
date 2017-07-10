@@ -168,6 +168,28 @@ bin/rake batch_connect:new_session BC_APP_TOKEN=sys/bc_desktop_v2/owens <<-EOF
 EOF
 ```
 
+### Safari Warning
+
+We currently display an alert message at the top of the Dashboard mentioning
+that we don't currently support the Safari browser. This is because of an issue
+in Safari where it fails to connect to websockets if the Apache proxy uses
+Basic Auth for user authentication (on by default for new OOD installations).
+
+If you ever change the authentication mechanism to a cookie-based mechanism
+(e.g., Shibboleth or OpenID Connect), then it is recommended you disable this
+alert message in the dashboard.
+
+You can do this by modifying the `.env.local` file as such:
+
+```sh
+# .env.local
+
+# ... all of your other settings ...
+
+# Set this to disable Safari + Basic Auth warning
+DISABLE_SAFARI_BASIC_AUTH_WARNING=1
+```
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at
