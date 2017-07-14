@@ -38,6 +38,13 @@ group :development do
   # gem 'web-console', '~> 2.0'
 end
 
+# thor > 0.19.1 prints some warnings to stderr which will require changes
+# from rails. We can't make the warnings go away. Once rails fixes these
+# warnings, this line can be removed entirely from our Gemfile.
+# https://github.com/rails/rails/issues/27229
+# https://github.com/erikhuda/thor/issues/538
+gem 'thor', '0.19.1'
+
 # Extra third-party gems
 gem 'dotenv-rails', '~> 2.0', require: 'dotenv/rails-now'
 gem 'bootstrap-sass', '~> 3.3'
@@ -51,7 +58,10 @@ gem 'data-confirm-modal', '~> 1.2'
 gem 'rails_12factor', group: :production
 gem 'mocha', '~> 1.1', group: :test
 gem "js-routes", '~> 1.3'
+gem "spring", group: :test
 
 # OOD specific gems
 gem 'ood_support', '~> 0.0.2'
 gem 'ood_appkit', '~> 1.0'
+gem 'pbs', '~> 2.0'
+gem 'ood_core', git: 'https://github.com/OSC/ood_core.git'
