@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+- Updated the `rails` gem to latest patch version as well as the other gems
+  used by the Dashboard app.
+  [#195](https://github.com/OSC/ood-dashboard/issues/195)
+
 ## [1.15.0] - 2017-17-17
 
 ### Added
