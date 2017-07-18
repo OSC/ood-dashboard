@@ -19,7 +19,17 @@ class OodFilesApp
   # returns an array of other paths provided as shortcuts to the user
   def favorite_paths
     @favorite_paths ||= candidate_favorite_paths.select {|p|
-      p.directory? && p.readable? && p.executable?
+      path_valid p
     }
+  end
+
+  private
+
+  def path_valid(path)
+    Timeout.timeout(3) {
+      path.directory? && path.readable? && path.executable?
+    }
+  rescue Timeout::Error => e
+    false
   end
 end
