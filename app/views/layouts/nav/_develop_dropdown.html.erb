@@ -7,5 +7,16 @@
     <li><a href="<%= ENV['OOD_DASHBOARD_DEV_DOCS_URL'] %>" target="_blank"><i class="fa fa-book"></i> Developer Documentation</a></li>
     <li><a href="<%=  products_path(type: "dev") %>"><i class="fa fa-gear"></i> <%= products_title(:dev) %></a></li>
     <li><a href="<%= products_path(type: "usr") %>"><i class="fa fa-share-alt"></i> <%= products_title(:usr) %></a></li>
+
+
+    <%# show recent sandbox apps list items %>
+    <% if @recent_dev_apps.any? %>
+      <%= content_tag "li", "", class: "divider", role: "separator"  %>
+      <%= content_tag :li, "Recent Sandbox Apps", class: "dropdown-header" %>
+
+      <% @recent_dev_apps.each_with_index do |app, idx| %>
+        <li><a href="<%= product_path(app.name, type: "dev") %>"><%= app_icon_tag(app) %> <%= "#{app.title} (#{app.name})" %></a></li>
+      <% end %>
+    <% end %>
   </ul>
 </li>
