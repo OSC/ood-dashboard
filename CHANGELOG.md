@@ -18,8 +18,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (Batch Connect) Added links to the output and staging directories for the
   apps and their sessions.
   [#218](https://github.com/OSC/ood-dashboard/issues/218)
-- (Batch Connect) Added a helpful `#to_bool` refinement that Batch Connect apps
-  can take advantage of in the ERB rendered templates.
+- (Batch Connect) Added a helpful `String#to_bool` monkey-patch that the Batch
+  Connect apps can take advantage of in the ERB rendered templates.
+  [229](https://github.com/OSC/ood-dashboard/pull/229)
 
 ### Changed
 
