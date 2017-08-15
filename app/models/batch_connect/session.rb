@@ -1,7 +1,11 @@
+require "refinements/to_bool"
+
 module BatchConnect
   class Session
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
+
+    using Refinements::ToBool
 
     # This class describes the object that is bound to the ERB template file
     # when it is rendered
