@@ -5,11 +5,11 @@ module BatchConnect
     include ActiveModel::Model
     include ActiveModel::Serializers::JSON
 
-    using Refinements::ToBool
-
     # This class describes the object that is bound to the ERB template file
     # when it is rendered
     TemplateBinding = Struct.new(:session, :context) do
+      using Refinements::ToBool
+
       # Get the binding for this object
       # @return [Binding] this object's binding
       def get_binding

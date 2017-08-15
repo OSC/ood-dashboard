@@ -1,5 +1,9 @@
+require "refinements/to_bool"
+
 module BatchConnect
   class SessionContext
+    using Refinements::ToBool
+
     include Enumerable
 
     include ActiveModel::Model
