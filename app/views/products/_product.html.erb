@@ -1,4 +1,3 @@
-<% modified_time = File.mtime(product.router.path) %>
 <tr>
   <td>
     <%= app_icon_tag(product.app) %>
@@ -21,7 +20,7 @@
     </div>
     <% end %>
   </td>
-  <td data-order="<%= modified_time.to_i %>"><%= modified_time.strftime("%m/%d/%y") %></td>
+  <td data-order="<%= product.modified_at.to_i %>"><%= product.modified_at.strftime("%m/%d/%y") %></td>
   <td>
     <%= link_to 'Shell', OodAppkit.shell.url(host: ENV['OOD_DEV_SSH_HOST'], path: product.router.path.realdirpath).to_s, target: '_blank', class: 'btn btn-default btn-block' %>
     <%= link_to 'Files', OodAppkit.files.url(path: product.router.path.realdirpath).to_s, target: '_blank', class: 'btn btn-default btn-block' %>

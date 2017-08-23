@@ -1,7 +1,7 @@
 class Product
   include ActiveModel::Model
 
-  delegate :passenger_rack_app?, :passenger_rails_app?, :passenger_app?, :can_run_bundle_install?, to: :app
+  delegate :passenger_rack_app?, :passenger_rails_app?, :passenger_app?, :can_run_bundle_install?, :modified_at, to: :app
 
   attr_accessor :name
   attr_accessor :found
@@ -104,7 +104,7 @@ class Product
   end
 
   def app
-    OodApp.new(router)
+    @app ||= OodApp.new(router)
   end
 
   def gemfile

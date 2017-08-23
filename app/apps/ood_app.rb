@@ -23,6 +23,18 @@ class OodApp
     manifest.name.empty? ? name.titleize : manifest.name
   end
 
+  def modified_at
+    # FIXME: ideally, we look at all the versioned files
+    # and see if one changed, or look at the tmp/restart dir
+    # or look at the git dir or any file that is appropriate
+    # or if git has a last modified date tool...
+    # right now, you can change files underneath, access the app
+    # and since the directory hasn't been touched
+    # the modified date ! change
+    # File.mtime(path)
+    @modified_at ||= path.mtime
+  end
+
   def url
     if manifest.url.empty?
       if batch_connect_app?
