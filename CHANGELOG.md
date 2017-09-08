@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.15.3] - 2017-09-08
+
+### Fixed
+
+- update dependencies to fix bug with LSF (see https://github.com/OSC/ood_core/pull/50)
+
 ## [1.15.2] - 2017-07-24
 
 ### Fixed
@@ -120,7 +126,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove unused assets.
 
 
-[Unreleased]: https://github.com/OSC/ood-dashboard/compare/v1.15.2...HEAD
+[Unreleased]: https://github.com/OSC/ood-dashboard/compare/v1.15.3...HEAD
+[1.15.3]: https://github.com/OSC/ood-dashboard/compare/v1.15.2...v1.15.3
 [1.15.2]: https://github.com/OSC/ood-dashboard/compare/v1.15.1...v1.15.2
 [1.15.1]: https://github.com/OSC/ood-dashboard/compare/v1.15.0...v1.15.1
 [1.15.0]: https://github.com/OSC/ood-dashboard/compare/v1.14.1...v1.15.0
