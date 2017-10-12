@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- Load a proper login shell for Interactive Apps when using an LSF resource
+  manager. [262](https://github.com/OSC/ood-dashboard/issues/262)
 
 ## [1.17.0] - 2017-09-27
 
