@@ -24,6 +24,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   manager. [262](https://github.com/OSC/ood-dashboard/issues/262)
 - Fixed the misnomer from "New Product" to "New App".
   [#257](https://github.com/OSC/ood-dashboard/issues/257)
+- Fixed the default sorting column on Products list page.
+  [#273](https://github.com/OSC/ood-dashboard/issues/273)
 
 ## [1.17.0] - 2017-09-27
 ### Added
