@@ -22,6 +22,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Fixed
 - Load a proper login shell for Interactive Apps when using an LSF resource
   manager. [262](https://github.com/OSC/ood-dashboard/issues/262)
+- Fixed the misnomer from "New Product" to "New App".
+  [#257](https://github.com/OSC/ood-dashboard/issues/257)
 
 ## [1.17.0] - 2017-09-27
 ### Added
