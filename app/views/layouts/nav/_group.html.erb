@@ -1,4 +1,5 @@
-<li class="dropdown" title="<%= group.title %>" >
+
+<li class="dropdown" id="dropdown-<%= group.title.underscore %>" title="<%= group.title %>" >
   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><%= group.title %><span class="caret"></span></a>
   <ul class="dropdown-menu">
 
@@ -14,13 +15,6 @@
 
         <% if app.role == "files" %>
           <%= nav_link "Home Directory", "home", OodAppkit.files.url(path: @user.home), target: "_blank" %>
-
-          <% OodFilesApp.new.favorite_paths.tap do |paths| %>
-            <%= content_tag "li", "", class: "divider", role: "separator" if paths.count > 0 %>
-            <% paths.each do |path| %>
-              <%= nav_link path.to_s, "folder", OodAppkit.files.url(path: path), target: "_blank" %>
-            <% end %>
-          <% end %>
 
         <% elsif app.role == "shell" %>
           <%= nav_link("Shell Access", "terminal", OodAppkit.shell.url, target: "_blank") if login_clusters.count == 0 %>

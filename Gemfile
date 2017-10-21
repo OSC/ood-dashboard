@@ -57,6 +57,7 @@ gem 'jquery-datatables-rails', '~> 3.4'
 gem 'data-confirm-modal', '~> 1.2'
 gem 'rails_12factor', group: :production
 gem 'mocha', '~> 1.1', group: :test
+gem "js-routes", '~> 1.3'
 gem "spring", group: :test
 
 # OOD specific gems

@@ -1,0 +1,6 @@
+<% OodFilesApp.new.favorite_paths.tap do |paths| %>
+    <%= content_tag "li", "", class: "divider", role: "separator" if paths.count > 0 %>
+    <% paths.each do |path| %>
+        <%= nav_link path.to_s, "folder", OodAppkit.files.url(path: path), target: "_blank" %>
+    <% end %>
+<% end %>

@@ -4,6 +4,13 @@
 #
 
 $ ->
+  # Load the additional paths into the view after page load
+  $.ajax
+    url: Routes.favorite_paths_path()
+    success: (data) ->
+      $('#dropdown-files .dropdown-menu').append data.html
+      return
+
   $("a[target=_blank]").on "click", (event) ->
     # open url using javascript, instead of following directly
     event.preventDefault()
@@ -16,4 +23,3 @@ $ ->
 
       # replace message in alert and add to main div of layout
       $("div[role=main]").prepend(html.split("ALERT_MSG").join(msg))
-
