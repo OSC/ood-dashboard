@@ -7,7 +7,7 @@ class MotdFile
   # Initialize the Motd Controller object based on the current user.
   #
   # @param [String] path The path to the motd file as a URI
-  def initialize(path = ENV['MOTD_PATH'])
+  def initialize(path = Configuration.motd_path)
     @motd_path = path
     @content = load(path)
   end
@@ -34,7 +34,7 @@ class MotdFile
   # @return [Object, nil] an MotdFormatter object that responds to `:to_partial_path`
   #                       `nil` if a file does not exist at the path.
   def formatter
-    case ENV['MOTD_FORMAT']
+    case Configuration.motd_format
       when 'osc'
         @motd = MotdFormatterOsc.new(self)
       when 'markdown'
