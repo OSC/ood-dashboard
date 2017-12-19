@@ -10,6 +10,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (Batch Connect) Added a root route for iHPC apps that take the user to the
   submission form. [#283](https://github.com/OSC/ood-dashboard/issues/283)
 
+### Changed
+- Renamed "App Design" in developer interface to "Type".
+  [#277](https://github.com/OSC/ood-dashboard/issues/277)
+
 ## [1.19.0] - 2017-12-15
 ### Added
 
