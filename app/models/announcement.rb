@@ -30,8 +30,8 @@ class Announcement
   end
 
   # @param opts [#to_h] the announcement object
-  # @option opts [#to_sym] :type (:info) Type of announcement (:info, :success,
-  #   :warning, :danger)
+  # @option opts [#to_sym] :type (:warning) Type of announcement (:info,
+  #   :success, :warning, :danger)
   # @option opts [#to_s] :msg (nil) The announcement message
   def initialize(opts = {})
     opts = opts.to_h.symbolize_keys.compact
