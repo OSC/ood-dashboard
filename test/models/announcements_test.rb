@@ -7,7 +7,6 @@ class AnnouncementsTest < ActiveSupport::TestCase
   end
 
   test "should return empty list if no valid path" do
-    Configuration.expects(:announcement_path).returns(nil)
     announcements = Announcements.all
     assert_equal 0, announcements.count
   end
@@ -17,7 +16,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     path = f.path
     f.close(true)
 
-    announcements = Announcements.parse(path)
+    announcements = Announcements.all(path)
     assert_equal 0, announcements.count
   end
 
@@ -26,7 +25,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     f.write %{Test announcement.}
     f.close
 
-    announcements = Announcements.parse(f.path)
+    announcements = Announcements.all(f.path)
     assert_equal 1, announcements.count
     announcement = announcements.first
     assert_equal :warning, announcement.type
@@ -38,7 +37,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     f.write %{   \n \n \t    }
     f.close
 
-    announcements = Announcements.parse(f.path)
+    announcements = Announcements.all(f.path)
     assert_equal 0, announcements.count
   end
 
@@ -47,7 +46,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     f.write %{type: success\nmsg: <%= true ? "Test announcement." : "Fail!" %>}
     f.close
 
-    announcements = Announcements.parse(f.path)
+    announcements = Announcements.all(f.path)
     assert_equal 1, announcements.count
     announcement = announcements.first
     assert_equal :success, announcement.type
@@ -59,7 +58,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     f.write %{type: success\nmsg: <%= true ? "null" : "Test announcement." %>}
     f.close
 
-    announcements = Announcements.parse(f.path)
+    announcements = Announcements.all(f.path)
     assert_equal 0, announcements.count
   end
 
@@ -75,8 +74,26 @@ class AnnouncementsTest < ActiveSupport::TestCase
         f.write %{type: danger\nmsg: "<%= true ? "  \n \t " : "Stuff" %>"}
       end
 
-      announcements = Announcements.parse(dir)
+      announcements = Announcements.all(dir)
       assert_equal 2, announcements.count
     end
+  end
+
+  test "should parse a list of valid and invalid files" do
+    f1 = Tempfile.open(["valid", ".md"])
+    f1.write %{File 1}
+    f1.close
+    f2 = Tempfile.open(["valid", ".yml"])
+    f2.write %{msg: "File 2"}
+    f2.close
+    f3 = Tempfile.open(["invalid", ".yml"])
+    f3.write %{type: danger\nmsg: "<%= true ? "  \n \t " : "Stuff" %>"}
+    f3.close
+    f4 = Tempfile.open(["does_not_exist", ".md"])
+    f4_path = f4.path
+    f4.close(true)
+
+    announcements = Announcements.all([f1.path, f2.path, f3.path, f4_path])
+    assert_equal 2, announcements.count
   end
 end

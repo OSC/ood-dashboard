@@ -13,18 +13,21 @@ class Announcement
   class << self
     # Parse a file
     # @param path [#to_s] path to file
-    # @return [Announcement, nil] announcement if able to parse
+    # @return [Announcement] announcement object
     def parse(path)
       path = Pathname.new(path.to_s).expand_path
-      return nil unless path.readable?
 
-      case path.extname
-      when ".md"
-        Announcement.new(msg: path.read)
-      when ".yml"
-        Announcement.new(YAML.safe_load(ERB.new(path.read, nil, "-").result))
+      if path.file? && path.readable?
+        case path.extname
+        when ".md"
+          Announcement.new(msg: path.read)
+        when ".yml"
+          Announcement.new(YAML.safe_load(ERB.new(path.read, nil, "-").result))
+        else
+          Announcement.new
+        end
       else
-        nil
+        Announcement.new
       end
     end
   end

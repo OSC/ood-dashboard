@@ -43,7 +43,7 @@ class ConfigurationSingleton
   end
 
   # The file system path to the announcements
-  # @return [Pathname, nil] announcement path
+  # @return [Pathname, Array<Pathname>] announcement path or paths
   def announcement_path
     if path = ENV["OOD_ANNOUNCEMENT_PATH"]
       Pathname.new(path)
@@ -52,7 +52,7 @@ class ConfigurationSingleton
         "/etc/ood/config/announcement.md",
         "/etc/ood/config/announcement.yml",
         "/etc/ood/config/announcements.d"
-      ].map {|p| Pathname.new(p)}.detect(&:exist?)
+      ].map {|p| Pathname.new(p)}
     end
   end
 
