@@ -25,6 +25,10 @@ class OodApp
     manifest.valid?
   end
 
+  def invalid_batch_connect_app?
+    batch_connect_app? && batch_connect.sub_app_list.none?(&:valid?)
+  end
+
   def initialize(router)
     @router = router
   end

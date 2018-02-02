@@ -1,0 +1,40 @@
+<%- usr_app_groups.each do |app_group| -%>
+  <%=
+    render(
+        partial: "batch_connect/shared/app_list",
+        locals: {
+          title: app_group.title,
+          apps: app_group.apps,
+          select_app: local_assigns[:select_app],
+          group_by: :category,
+          style: "ood-blue",
+          show_owner: true
+        }
+    )
+  %>
+<%- end -%>
+<%- sys_app_groups.each do |app_group| -%>
+  <%=
+    render(
+        partial: "batch_connect/shared/app_list",
+        locals: {
+          title: app_group.title,
+          apps: app_group.apps,
+          select_app: local_assigns[:select_app]
+        }
+    )
+  %>
+<%- end -%>
+<%- dev_app_groups.each do |app_group| -%>
+  <%=
+    render(
+        partial: "batch_connect/shared/app_list",
+        locals: {
+          title: "#{app_group.title} [Sandbox]",
+          apps: app_group.apps,
+          select_app: local_assigns[:select_app],
+          style: "ood-burgundy"
+        }
+    )
+  %>
+<%- end -%>
