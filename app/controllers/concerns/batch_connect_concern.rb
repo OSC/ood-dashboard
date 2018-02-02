@@ -9,10 +9,10 @@ module BatchConnectConcern
 
   def bc_usr_app_groups
     apps = nav_usr_apps.select(&:batch_connect_app?)
-    if apps
-      [ OodAppGroup.new(title: "Shared Apps", apps: apps) ]
-    else
+    if apps.empty?
       []
+    else
+      [ OodAppGroup.new(title: "Shared Apps", apps: apps) ]
     end
   end
 
