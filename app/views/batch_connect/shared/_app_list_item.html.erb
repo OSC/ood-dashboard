@@ -2,10 +2,8 @@
   <%= link_to new_batch_connect_session_context_path(token: sub_app.token),
     class: "list-group-item #{"active" if select_app && select_app == sub_app}",
     data: {
-      # toggle: "popover",
-      content: manifest_markdown(app.manifest.description),
+      content: manifest_markdown(sub_app.description),
       html: true,
-      # trigger: "hover",
       title: sub_app.title,
       container: "body"
   } do %>

@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#317](https://github.com/OSC/ood-dashboard/issues/317),
   [#173](https://github.com/OSC/ood-dashboard/issues/173)
 
+### Changed
+- (Batch Connect) Interactive Apps open in same tab from all navigation menus.
+  [#318](https://github.com/OSC/ood-dashboard/issues/318)
+
 ### Fixed
 - (Batch Connect) Hide empty sub-categories in top navbar due to invalid
   Interactive Apps. [#259](https://github.com/OSC/ood-dashboard/issues/259)

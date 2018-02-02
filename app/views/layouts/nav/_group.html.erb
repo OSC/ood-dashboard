@@ -13,7 +13,13 @@
       <% g.apps.each do |app| %>
         <% app.links.each do |link| %>
           <li>
-            <%= link_to link.url.to_s, target: "_blank" do %>
+            <%=
+              link_to(
+                link.url.to_s,
+                title: link.title,
+                target: link.target
+              ) do
+            %>
               <%= link.icon ? fa_icon(link.icon) : app_icon_tag(app) %> <%= link.title %>
             <% end %>
           </li>

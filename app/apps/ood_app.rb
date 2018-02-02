@@ -2,7 +2,7 @@ class OodApp
   attr_reader :router
   delegate :owner, :caption, :type, :path, :name, :token, to: :router
 
-  Link = Struct.new(:title, :url, :icon)
+  Link = Struct.new(:title, :url, :icon, :target)
 
   def accessible?
     path.executable? && path.readable?
@@ -58,22 +58,59 @@ class OodApp
   def links
     if role == "files"
       # assumes Home Directory is primary...
-      [Link.new("Home Directory", OodAppkit.files.url(path: Dir.home), 'home')] + OodFilesApp.new.favorite_paths.map do |path|
-        Link.new(path.to_s, OodAppkit.files.url(path: path), "folder")
-      end
+      [
+        Link.new(
+          "Home Directory",
+          OodAppkit.files.url(path: Dir.home),
+          "home",
+          "_blank"
+        )
+      ].concat(
+        OodFilesApp.new.favorite_paths.map do |path|
+          Link.new(
+            path.to_s,
+            OodAppkit.files.url(path: path),
+            "folder",
+            "_blank"
+          )
+        end
+      )
     elsif role == "shell"
       if ApplicationController.helpers.login_clusters.count == 0
-        [Link.new("Shell Access", OodAppkit.shell.url,"terminal")]
+        [
+          Link.new("Shell Access", OodAppkit.shell.url, "terminal", "_blank")
+        ]
       else
-        ApplicationController.helpers.login_clusters.map { |c| Link.new("#{c.metadata.title} Shell Access", OodAppkit.shell.url(host: c.login.host), "terminal") }
+        ApplicationController.helpers.login_clusters.map do |cluster|
+          Link.new(
+            "#{cluster.metadata.title} Shell Access",
+            OodAppkit.shell.url(host: cluster.login.host),
+            "terminal",
+            "_blank"
+          )
+        end
       end
     elsif role == "batch_connect"
       batch_connect.sub_app_list.select(&:valid?).map do |sub_app|
-        Link.new(sub_app.title, Rails.application.routes.url_helpers.new_batch_connect_session_context_path(token: sub_app.token))
+        Link.new(
+          sub_app.title,
+          Rails.application.routes.url_helpers.new_batch_connect_session_context_path(
+            token: sub_app.token
+          ),
+          nil,
+          nil
+        )
       end
     else
       # normal, use default icon
-      [Link.new(title, Rails.application.routes.url_helpers.app_path(name, type, owner))]
+      [
+        Link.new(
+          title,
+          Rails.application.routes.url_helpers.app_path(name, type, owner),
+          nil,
+          "_blank"
+        )
+      ]
     end
   end
 
