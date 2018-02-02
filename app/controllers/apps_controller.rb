@@ -15,7 +15,7 @@ class AppsController < ApplicationController
       redirect_to apps_restart_url
     else
       @title = nil
-      @groups = OodAppGroup.groups_for(apps: usr_apps)
+      @groups = OodAppGroup.groups_for(apps: nav_usr_apps)
     end
   end
 
