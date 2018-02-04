@@ -17,10 +17,10 @@
               link_to(
                 link.url.to_s,
                 title: link.title,
-                target: link.target
+                target: link.new_tab? ? "_blank" : nil
               ) do
             %>
-              <%= link.icon ? fa_icon(link.icon) : app_icon_tag(app) %> <%= link.title %>
+              <%= icon_tag(link.icon_uri) %> <%= link.title %>
             <% end %>
           </li>
         <% end %>

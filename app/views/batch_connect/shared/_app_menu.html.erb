@@ -5,7 +5,7 @@
         locals: {
           title: app_group.title,
           apps: app_group.apps,
-          select_app: local_assigns[:select_app],
+          current_url: local_assigns[:current_url],
           group_by: :category,
           style: "ood-blue",
           show_owner: true
@@ -20,7 +20,7 @@
         locals: {
           title: app_group.title,
           apps: app_group.apps,
-          select_app: local_assigns[:select_app]
+          current_url: local_assigns[:current_url]
         }
     )
   %>
@@ -32,7 +32,7 @@
         locals: {
           title: "#{app_group.title} [Sandbox]",
           apps: app_group.apps,
-          select_app: local_assigns[:select_app],
+          current_url: local_assigns[:current_url],
           style: "ood-burgundy"
         }
     )

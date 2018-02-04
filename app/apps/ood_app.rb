@@ -1,8 +1,8 @@
 class OodApp
+  include Rails.application.routes.url_helpers
+
   attr_reader :router
   delegate :owner, :caption, :type, :path, :name, :token, to: :router
-
-  Link = Struct.new(:title, :url, :icon, :target)
 
   def accessible?
     path.executable? && path.readable?
@@ -59,56 +59,76 @@ class OodApp
     if role == "files"
       # assumes Home Directory is primary...
       [
-        Link.new(
-          "Home Directory",
-          OodAppkit.files.url(path: Dir.home),
-          "home",
-          "_blank"
+        OodAppLink.new(
+          title: "Home Directory",
+          description: manifest.description,
+          url: OodAppkit.files.url(path: Dir.home),
+          icon_uri: icon_uri,
+          caption: caption,
+          new_tab: true
         )
       ].concat(
         OodFilesApp.new.favorite_paths.map do |path|
-          Link.new(
-            path.to_s,
-            OodAppkit.files.url(path: path),
-            "folder",
-            "_blank"
+          OodAppLink.new(
+            title: path.to_s,
+            description: manifest.description,
+            url: OodAppkit.files.url(path: path),
+            icon_uri: "fa://folder",
+            caption: caption,
+            new_tab: true
           )
         end
       )
     elsif role == "shell"
-      if ApplicationController.helpers.login_clusters.count == 0
+      login_clusters = OodCore::Clusters.new(
+        OodAppkit.clusters
+          .select(&:allow?)
+          .reject { |c| c.metadata.hidden }
+          .select(&:login_allow?)
+      )
+      if login_clusters.none?
         [
-          Link.new("Shell Access", OodAppkit.shell.url, "terminal", "_blank")
+          OodAppLink.new(
+            title: "Shell Access",
+            description: manifest.description,
+            url: OodAppkit.shell.url,
+            icon_uri: "fa://terminal",
+            caption: caption,
+            new_tab: true
+          )
         ]
       else
-        ApplicationController.helpers.login_clusters.map do |cluster|
-          Link.new(
-            "#{cluster.metadata.title} Shell Access",
-            OodAppkit.shell.url(host: cluster.login.host),
-            "terminal",
-            "_blank"
+        login_clusters.map do |cluster|
+          OodAppLink.new(
+            title: "#{cluster.metadata.title || cluster.id.titleize} Shell Access",
+            description: manifest.description,
+            url: OodAppkit.shell.url(host: cluster.login.host),
+            icon_uri: "fa://terminal",
+            caption: caption,
+            new_tab: true
           )
         end
       end
     elsif role == "batch_connect"
       batch_connect.sub_app_list.select(&:valid?).map do |sub_app|
-        Link.new(
-          sub_app.title,
-          Rails.application.routes.url_helpers.new_batch_connect_session_context_path(
-            token: sub_app.token
-          ),
-          nil,
-          nil
+        OodAppLink.new(
+          title: sub_app.title,
+          description: sub_app.description,
+          url: new_batch_connect_session_context_path(token: sub_app.token),
+          icon_uri: icon_uri,
+          caption: caption,
+          new_tab: false
         )
       end
     else
-      # normal, use default icon
       [
-        Link.new(
-          title,
-          Rails.application.routes.url_helpers.app_path(name, type, owner),
-          nil,
-          "_blank"
+        OodAppLink.new(
+          title: title,
+          description: manifest.description,
+          url: app_path(name, type, owner),
+          icon_uri: icon_uri,
+          caption: caption,
+          new_tab: true
         )
       ]
     end
@@ -152,6 +172,16 @@ class OodApp
 
   def icon_path
     path.join("icon.png")
+  end
+
+  def icon_uri
+    if icon_path.file?
+      app_icon_path(name, type, owner)
+    elsif manifest.icon =~ /fa:\/\//
+      manifest.icon
+    else
+      "fa://gear"
+    end
   end
 
   class SetupScriptFailed < StandardError; end

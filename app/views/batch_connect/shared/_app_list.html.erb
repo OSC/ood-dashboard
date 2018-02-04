@@ -22,7 +22,7 @@
         as: :app,
         locals: {
           show_owner: local_assigns.fetch(:show_owner, false),
-          select_app: local_assigns[:select_app]
+          current_url: local_assigns[:current_url]
         }
       )
     %>
