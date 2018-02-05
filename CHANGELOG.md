@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - (Batch Connect) Added Shared/Sandbox apps to left-hand navigation menu.
   [#317](https://github.com/OSC/ood-dashboard/issues/317),
   [#173](https://github.com/OSC/ood-dashboard/issues/173)
+- Added support to launch "sub-apps" from Developer Dashboard.
+  [#261](https://github.com/OSC/ood-dashboard/issues/261)
 
 ### Changed
 - (Batch Connect) Interactive Apps open in same tab from all navigation menus.
