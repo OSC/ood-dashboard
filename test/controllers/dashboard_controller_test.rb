@@ -95,7 +95,7 @@ class DashboardControllerTest < ActionController::TestCase
 
     get :index
     assert_response :success
-    assert_select "li[title='My Interactive Sessions'] a", "My Interactive Sessions"
+    assert_select "nav a[href='#{batch_connect_sessions_path}']", 1
 
     SysRouter.unstub(:base_path)
   end
@@ -106,7 +106,7 @@ class DashboardControllerTest < ActionController::TestCase
 
     get :index
     assert_response :success
-    assert_select "li[title='My Interactive Sessions'] a", "My Interactive Sessions"
+    assert_select "nav a[href='#{batch_connect_sessions_path}']", 1
 
     SysRouter.unstub(:base_path)
   end
@@ -117,7 +117,7 @@ class DashboardControllerTest < ActionController::TestCase
 
     get :index
     assert_response :success
-    assert_select "li[title='My Interactive Sessions']", count: 0
+    assert_select "nav a[href='#{batch_connect_sessions_path}']", 0
 
     SysRouter.unstub(:base_path)
   end
