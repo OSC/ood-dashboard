@@ -12,9 +12,8 @@ before_install:
   - nvm install $TRAVIS_NODE_VERSION
   - nvm use $TRAVIS_NODE_VERSION
   - npm install -g npm@$TRAVIS_NPM_VERSION
-install:
   - ruby --version
-  - bundler --version
+  - bundle --version
   - node --version
   - npm --version
 notifications:
