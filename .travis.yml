@@ -3,9 +3,10 @@ language: ruby
 rvm:
   - 2.2.2
 env:
-  - TRAVIS_BUNDLER_VERSION="1.7.8"
-  - TRAVIS_NODE_VERSION="0.10.40"
-  - TRAVIS_NPM_VERSION="2.14.13"
+  global:
+    - TRAVIS_BUNDLER_VERSION="1.7.8"
+    - TRAVIS_NODE_VERSION="0.10.40"
+    - TRAVIS_NPM_VERSION="2.14.13"
 before_install:
   - gem install bundler -v $TRAVIS_BUNDLER_VERSION
   - nvm install $TRAVIS_NODE_VERSION
