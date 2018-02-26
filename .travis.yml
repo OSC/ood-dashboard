@@ -7,8 +7,6 @@ env:
     - TRAVIS_NODE_VERSION="0.10.40"
     - TRAVIS_NPM_VERSION="2.14.13"
 before_install:
-  - ruby --version
-  - bundle --version
   - nvm install $TRAVIS_NODE_VERSION
   - nvm use $TRAVIS_NODE_VERSION
   - npm install -g npm@$TRAVIS_NPM_VERSION
