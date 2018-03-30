@@ -55,7 +55,7 @@
 
     <% @announcements.each do |announcement| %>
       <div class="alert alert-<%= announcement.type %> announcement" role="alert">
-        <%= raw markdown(announcement.msg) %>
+        <%= raw OodAppkit.markdown.render(announcement.msg) %>
       </div>
     <% end %>
 
