@@ -9,6 +9,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Changed
 - Reduced the restrictions on HTML included in the announcement's markdown.
   [#352](https://github.com/OSC/ood-dashboard/issues/352)
+- Lazily load the announcements so they aren't parsed unless needed.
+  [#353](https://github.com/OSC/ood-dashboard/issues/353)
+
+### Fixed
+- Show valid announcements even if error raised when parsing an announcement.
+  [#354](https://github.com/OSC/ood-dashboard/issues/354)
 
 ## [1.24.0] - 2018-03-27
 ### Changed

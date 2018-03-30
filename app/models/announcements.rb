@@ -10,7 +10,7 @@ class Announcements
 
       announcements = paths.flat_map do |p|
         p.directory? ? Pathname.glob(p.join("*.{md,yml}")).sort : p
-      end.map { |p| Announcement.parse(p) }.select(&:valid?)
+      end.map { |p| Announcement.new(p) }
 
       new(announcements)
     end

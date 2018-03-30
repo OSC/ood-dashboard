@@ -53,7 +53,7 @@
 
   <div class="container content" role="main">
 
-    <% @announcements.each do |announcement| %>
+    <% @announcements.select(&:valid?).each do |announcement| %>
       <div class="alert alert-<%= announcement.type %> announcement" role="alert">
         <%= raw OodAppkit.markdown.render(announcement.msg) %>
       </div>
