@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 - (Batch Connect) Can now configure whether global configuration is used for
   system apps.
-  
+
 ### Changed
 - Allow HTML to be included and rendered in announcement message.
   [#352](https://github.com/OSC/ood-dashboard/issues/352)
