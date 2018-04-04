@@ -9,10 +9,8 @@ class Announcement
   def initialize(opts = {})
     if opts.respond_to? :to_h
       @opts = opts.to_h
-    elsif opts.respond_to? :to_s
-      @path = Pathname.new(opts.to_s).expand_path
     else
-      @opts = {}
+      @path = Pathname.new(opts.to_s)
     end
   end
 
@@ -40,9 +38,9 @@ class Announcement
     def opts
       @opts ||= case @path.extname
                 when ".md"
-                  { msg: @path.read }
+                  { msg: @path.expand_path.read }
                 when ".yml"
-                  YAML.safe_load(ERB.new(@path.read, nil, "-").result)
+                  YAML.safe_load(ERB.new(@path.expand_path.read, nil, "-").result)
                 else
                   {}
                 end

@@ -118,6 +118,7 @@ class AnnouncementsTest < ActiveSupport::TestCase
     f5.write %{INVALID: YAML\nINVALID YAML}
     f5.close
     f6 = Dir.mktmpdir("more_announcements")
+    f7 = "~nonexistant_user/invalid/path.md"
     File.open("#{f6}/valid1.md", "w") do |f|
       f.write %{File 1}
     end
@@ -135,8 +136,8 @@ class AnnouncementsTest < ActiveSupport::TestCase
     end
     Dir.mkdir("#{f6}/invalid4.yml")
 
-    announcements = Announcements.all([f1.path, f2.path, f3.path, f4_path, f5.path, f6])
-    assert_equal 11, announcements.count
+    announcements = Announcements.all([f1.path, f2.path, f3.path, f4_path, f5.path, f6, f7])
+    assert_equal 12, announcements.count
     assert_equal 4, announcements.select(&:valid?).count
   end
 end
