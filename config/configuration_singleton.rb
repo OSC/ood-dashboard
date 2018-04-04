@@ -42,6 +42,10 @@ class ConfigurationSingleton
     Pathname.new(ENV["OOD_BC_APP_CONFIG_ROOT"] || "/etc/ood/config/apps")
   end
 
+  def load_external_bc_config?
+    to_bool(ENV["OOD_LOAD_EXTERNAL_BC_CONFIG"] || (rails_env == "production"))
+  end
+
   # The file system path to the announcements
   # @return [Pathname, Array<Pathname>] announcement path or paths
   def announcement_path
@@ -105,6 +109,10 @@ class ConfigurationSingleton
 
   def show_all_apps_link?
     to_bool(ENV['SHOW_ALL_APPS_LINK'])
+  end
+
+  def developer_docs_url
+    ENV['OOD_DASHBOARD_DEV_DOCS_URL'] || "https://go.osu.edu/ood-app-dev"
   end
 
   def dataroot

@@ -6,15 +6,27 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Added
+- (Batch Connect) Can now configure whether global configuration is used for
+  system apps.
+  
 ### Changed
 - Allow HTML to be included and rendered in announcement message.
   [#352](https://github.com/OSC/ood-dashboard/issues/352)
 - Lazily load the announcements so they aren't parsed unless needed.
   [#353](https://github.com/OSC/ood-dashboard/issues/353)
+- Set a default developer documentation link to https://go.osu.edu/ood-app-dev.
+  [#255](https://github.com/OSC/ood-dashboard/issues/255)
+- Ordered the Shell Apps by cluster title in the dropdown navbar.
+  [#116](https://github.com/OSC/ood-dashboard/issues/116)
 
 ### Fixed
 - Show valid announcements even if error raised when parsing an announcement.
   [#354](https://github.com/OSC/ood-dashboard/issues/354)
+
+### Removed
+- Removed environment variable specifying `OOD_DEV_SSH_HOST`.
+  [#312](https://github.com/OSC/ood-dashboard/issues/312)
 
 ## [1.24.0] - 2018-03-27
 ### Changed
