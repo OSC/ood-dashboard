@@ -6,6 +6,9 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+### Fixed
+- (Batch Connect) Fix crashing when handling invalid session data files.
+  [#357](https://github.com/OSC/ood-dashboard/issues/357)
 
 ## [1.25.1] - 2018-04-09
 ### Fixed
