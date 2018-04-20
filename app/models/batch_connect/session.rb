@@ -76,12 +76,12 @@ module BatchConnect
       # Find all active session jobs
       # @return [Array<Session>] list of sessions
       def all
-        db_root.children.select(&:file?).map do |f|
+        db_root.children.select(&:file?).reject {|p| p.extname == ".bak"}.map do |f|
           begin
             new.from_json(f.read)
           rescue => e
             Rails.logger.error("ERROR: Error parsing file '#{f}' --- #{e.class} - #{e.message}")
-            f.delete unless Rails.env.development?
+            f.rename("#{f}.bak")
             nil
           end
         end.compact.map do |s|
