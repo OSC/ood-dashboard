@@ -35,17 +35,22 @@ namespace :test do
           break if status.completed?
           sleep 5
         end
-        output = output_path.read
-        if /^#{Regexp.escape(test_string)}$/.match(output)
-          puts "Test for '#{cluster.id}' PASSED!"
+        if output_path.exist?
+          output = output_path.read
+          if /^#{Regexp.escape(test_string)}$/.match(output)
+            puts "Test for '#{cluster.id}' PASSED!"
+          else
+            puts "Couldn't find the test string '#{test_string}' in job output:"
+            puts ""
+            puts output.gsub(/^/, "    ")
+            puts ""
+            puts "Test for '#{cluster.id}' FAILED!"
+          end
+          output_path.rmtree
         else
+          puts "Output file from job does not exist: #{output_path}"
           puts "Test for '#{cluster.id}' FAILED!"
-          puts "Couldn't find the test string '#{test_string}' in job output:"
-          puts ""
-          puts output.gsub(/^/, "    ")
-          puts ""
         end
-        output_path.rmtree
         puts "Finished testing cluster '#{cluster.id}'"
       end
     end
