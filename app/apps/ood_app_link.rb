@@ -1,5 +1,6 @@
 class OodAppLink
   attr_reader :title
+  attr_reader :subtitle
   attr_reader :description
   attr_reader :url
   attr_reader :icon_uri
@@ -9,6 +10,7 @@ class OodAppLink
     config = config.to_h.compact.symbolize_keys
 
     @title       = config.fetch(:title, "No title set").to_s
+    @subtitle    = config.fetch(:subtitle, "").to_s
     @description = config.fetch(:description, "").to_s
     @url         = config.fetch(:url, "").to_s
     @icon_uri    = URI(config.fetch(:icon_uri, "fa://gear").to_s)

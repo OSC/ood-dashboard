@@ -58,27 +58,29 @@ class OodApp
   def links
     if role == "files"
       # assumes Home Directory is primary...
-      [
+      file_links = [
         OodAppLink.new(
           title: "Home Directory",
           description: manifest.description,
           url: OodAppkit.files.url(path: Dir.home),
-          icon_uri: icon_uri,
+          icon_uri: "fa://home",
           caption: caption,
           new_tab: true
         )
-      ].concat(
-        OodFilesApp.new.favorite_paths.map do |path|
+      ]
+      OodFilesApp.new.favorite_paths.each { |path, description|
+        file_links.concat([
           OodAppLink.new(
-            title: path.to_s,
+            title: description.to_s,
+            subtitle: path.to_s,
             description: manifest.description,
             url: OodAppkit.files.url(path: path),
             icon_uri: "fa://folder",
             caption: caption,
-            new_tab: true
-          )
-        end
-      )
+            new_tab: true)
+        ])
+      }
+      return file_links
     elsif role == "shell"
       login_clusters = OodCore::Clusters.new(
         OodAppkit.clusters
@@ -246,7 +248,7 @@ class OodApp
   # @return [Boolean] true if Gemfile.lock has specified gem name
   def has_gem?(gemname)
     # FIXME: we want to make this public, test it, and add functionality to make it
-    # work whether the app has a Gemfile.lock or just a Gemfile. 
+    # work whether the app has a Gemfile.lock or just a Gemfile.
     # see ood_app_test.rb
     has_gemfile? && bundler_helper.has_gem?(gemname)
   end
