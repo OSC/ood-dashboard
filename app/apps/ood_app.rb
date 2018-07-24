@@ -61,6 +61,7 @@ class OodApp
       file_links = [
         OodAppLink.new(
           title: "Home Directory",
+          subtitle: Dir.home.to_s,
           description: manifest.description,
           url: OodAppkit.files.url(path: Dir.home),
           icon_uri: "fa://home",
