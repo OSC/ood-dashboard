@@ -61,16 +61,19 @@ class OodApp
       [
         OodAppLink.new(
           title: "Home Directory",
+          subtitle: Dir.home.to_s,
           description: manifest.description,
           url: OodAppkit.files.url(path: Dir.home),
-          icon_uri: icon_uri,
+          icon_uri: "fa://home",
           caption: caption,
           new_tab: true
         )
       ].concat(
         OodFilesApp.new.favorite_paths.map do |path|
+          has_title = path.respond_to?(:title) && !path.title.nil?
           OodAppLink.new(
-            title: path.to_s,
+            title: has_title ? path.title.to_s : path.to_s,
+            subtitle: has_title ? path.to_s : "",
             description: manifest.description,
             url: OodAppkit.files.url(path: path),
             icon_uri: "fa://folder",
@@ -246,7 +249,7 @@ class OodApp
   # @return [Boolean] true if Gemfile.lock has specified gem name
   def has_gem?(gemname)
     # FIXME: we want to make this public, test it, and add functionality to make it
-    # work whether the app has a Gemfile.lock or just a Gemfile. 
+    # work whether the app has a Gemfile.lock or just a Gemfile.
     # see ood_app_test.rb
     has_gemfile? && bundler_helper.has_gem?(gemname)
   end

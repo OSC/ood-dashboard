@@ -10,11 +10,11 @@
             <%=
               link_to(
                 link.url.to_s,
-                title: link.title,
+                title: link.description.empty? ? link.title : link.description,
                 target: link.new_tab? ? "_blank" : nil
               ) do
             %>
-              <%= icon_tag(link.icon_uri) %> <%= link.title %>
+              <%= icon_tag(link.icon_uri) %> <%= link.title %> <%== "<br /><small>#{link.subtitle}</small>" unless link.subtitle.empty? %>
             <% end %>
           </li>
         <% end %>
