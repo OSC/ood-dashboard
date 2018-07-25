@@ -58,7 +58,7 @@ class OodApp
   def links
     if role == "files"
       # assumes Home Directory is primary...
-      file_links = [
+      [
         OodAppLink.new(
           title: "Home Directory",
           subtitle: Dir.home.to_s,
@@ -68,20 +68,20 @@ class OodApp
           caption: caption,
           new_tab: true
         )
-      ]
-      OodFilesApp.new.favorite_paths.each { |path, description|
-        file_links.concat([
+      ].concat(
+        OodFilesApp.new.favorite_paths.map do |path|
+          has_title = path.respond_to?(:title) && !path.title.nil?
           OodAppLink.new(
-            title: description.to_s,
-            subtitle: path.to_s,
+            title: has_title ? path.title.to_s : path.to_s,
+            subtitle: has_title ? path.to_s : "",
             description: manifest.description,
             url: OodAppkit.files.url(path: path),
             icon_uri: "fa://folder",
             caption: caption,
-            new_tab: true)
-        ])
-      }
-      return file_links
+            new_tab: true
+          )
+        end
+      )
     elsif role == "shell"
       login_clusters = OodCore::Clusters.new(
         OodAppkit.clusters
