@@ -1,4 +1,4 @@
-class FavPath < Pathname
+class FavoritePath < Pathname
   def initialize(arg, title: nil)
     super(arg)
     @title = title

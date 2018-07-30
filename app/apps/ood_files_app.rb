@@ -18,8 +18,22 @@ class OodFilesApp
   # a link to the user's home directory
   # returns an array of other paths provided as shortcuts to the user
   def favorite_paths
-    @favorite_paths ||= candidate_favorite_paths.select {|p|
-      p.directory? && p.readable? && p.executable?
-    }
+    if candidate_favorite_paths.class == Hash
+      candidate_favorite_paths.each { |path, title|
+        favorite_paths_tmp += FavoritePath.new(path, title: title)
+      }
+      @favorite_paths ||= favorite_paths_tmp
+    else
+      @favorite_paths ||= candidate_favorite_paths.select { |p|
+        p.directory? && p.readable? && p.executable?
+      }.map { |p|
+        case p.class
+        when Pathname
+          FavoritePath.new(p)
+        when FavoritePath
+          p
+        end
+      }
+    end
   end
 end

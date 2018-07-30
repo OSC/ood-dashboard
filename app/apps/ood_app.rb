@@ -70,7 +70,7 @@ class OodApp
         )
       ].concat(
         OodFilesApp.new.favorite_paths.map do |path|
-          has_title = path.respond_to?(:title) && !path.title.nil?
+          has_title = !path.title.nil?
           OodAppLink.new(
             title: has_title ? path.title.to_s : path.to_s,
             subtitle: has_title ? path.to_s : "",
