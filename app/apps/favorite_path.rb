@@ -1,9 +1,10 @@
-class FavoritePath < Pathname
-  def initialize(arg, title: nil)
-    super(arg)
+class FavoritePath
+  
+  def initialize(path, title: nil)
+    @path = Pathname.new(path)
     @title = title
   end
-
-  attr_accessor :title
+  
+  attr_accessor :path, :title
 
 end

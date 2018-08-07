@@ -69,13 +69,13 @@ class OodApp
           new_tab: true
         )
       ].concat(
-        OodFilesApp.new.favorite_paths.map do |path|
-          has_title = !path.title.nil?
+        OodFilesApp.new.favorite_paths.map do |fav_path|
+          has_title = !fav_path.title.nil?
           OodAppLink.new(
-            title: has_title ? path.title.to_s : path.to_s,
-            subtitle: has_title ? path.to_s : "",
+            title: has_title ? fav_path.title : fav_path.path.to_s,
+            subtitle: has_title ? fav_path.path.to_s : "",
             description: manifest.description,
-            url: OodAppkit.files.url(path: path),
+            url: OodAppkit.files.url(path: fav_path),
             icon_uri: "fa://folder",
             caption: caption,
             new_tab: true

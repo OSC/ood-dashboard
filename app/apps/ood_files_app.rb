@@ -23,7 +23,7 @@ class OodFilesApp
       if item.class == Pathname
         fav_paths << FavoritePath.new(item) if okay(item)
       elsif item.class == FavoritePath
-        fav_paths << item if okay(item)
+        fav_paths << item if okay(item.path)
       elsif item.class == Hash
         item.each { |item_pathname, item_title|
           fav_paths << FavoritePath.new(item_pathname, title: item_title) if okay(item_pathname)
