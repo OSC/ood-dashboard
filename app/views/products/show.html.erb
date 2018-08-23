@@ -166,11 +166,13 @@
   method: :delete,
   data: {
     original_title: 'Are you ABSOLUTELY sure?',
-    confirm: '<div class="alert alert-warning">Unexpected bad things will happen if you don\'t read this!</div><p>This will move the product to the trash. Any users currently running this app will experience breaking behavior. Any past or present users of this app will be unable to access their data for this app. Be sure you know what you are doing!</p>'.html_safe,
-    verify: @product.name,
-    verify_text: 'Please type in the directory name of the app to confirm.',
-    commit: 'I understand the consequences, delete this app',
-    commit_class: 'btn-danger btn-block',
+    confirm: "<div class=\"alert alert-warning\">Unexpected bad things will happen if you don\'t read this!</div>
+              <p>This will permanently delete this app. Any users currently running this app will experience breaking behavior. Any past or present users of this app will be unable to access their data for this app. Be sure you know what you are doing!</p>
+              <p>To delete the app, run the following command in the shell:</p>
+              <pre>rm -rfv #{@product.app.path}</pre>".html_safe +
+              link_to('I understand the consequences, open a shell for me', OodAppkit.shell.url(path: @product.app.path.parent).to_s, class: 'btn btn-block btn-danger', target: "_blank").html_safe,
+    commit: 'I have done the deed. Take me back to my other apps.',
+    commit_class: 'btn-warning btn-block',
     cancel_class: 'hide'
   },
   class: 'btn btn-danger pull-right'

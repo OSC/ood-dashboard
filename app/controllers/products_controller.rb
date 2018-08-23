@@ -77,11 +77,19 @@ class ProductsController < ApplicationController
   # DELETE /products/1.json
   def destroy
     @type = params[:type].to_sym
-    @product = Product.find(@type, params[:name])
 
-    @product.destroy
+    begin
+      @product = Product.find(@type, params[:name])
+    rescue Product::NotFound
+      respond_to do |format|
+        format.html { redirect_to products_url(type: @type), notice: 'The app was successfully deleted.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+
     respond_to do |format|
-      format.html { redirect_to products_url(type: @type), notice: 'Product was successfully moved to the trash.' }
+      format.html { redirect_to products_url(type: @type), alert: "Oh no! The app does not appear to have been removed. Either you did not issue the correct command, or a file may have had open handles with one or more processes." }
       format.json { head :no_content }
     end
   end
