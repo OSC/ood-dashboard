@@ -161,19 +161,15 @@
 <% end %>
 
 <%= link_to 'Back', products_path(type: @type), class: 'btn btn-default' %>
-<%= link_to 'Delete App',
-  product_path(@product.name, type: @type),
-  method: :delete,
+<%= button_tag 'Delete App',
+  class: 'btn btn-danger pull-right',
   data: {
-    original_title: 'Are you ABSOLUTELY sure?',
-    confirm: '<div class="alert alert-warning">Unexpected bad things will happen if you don\'t read this!</div><p>This will move the product to the trash. Any users currently running this app will experience breaking behavior. Any past or present users of this app will be unable to access their data for this app. Be sure you know what you are doing!</p>'.html_safe,
-    verify: @product.name,
-    verify_text: 'Please type in the directory name of the app to confirm.',
-    commit: 'I understand the consequences, delete this app',
-    commit_class: 'btn-danger btn-block',
-    cancel_class: 'hide'
-  },
-  class: 'btn btn-danger pull-right'
+    toggle: 'popover',
+    placement: 'auto',
+    title: 'To delete this app, run this command in the terminal',
+    html: 'true',
+    content: "<pre>mkdir -p $HOME/tmp; mktemp -d --tmpdir=$HOME/tmp/ | xargs -I % sh -c 'echo %; mv #{@product.app.path} %; rm -rf %;'</pre>"
+  }
 %>
 
 <div class="modal fade" id="productCliModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
