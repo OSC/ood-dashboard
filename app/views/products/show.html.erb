@@ -166,9 +166,11 @@
   data: {
     toggle: 'popover',
     placement: 'auto',
-    title: 'To delete this app, run this command in the terminal',
+    title: 'Delete this app using the terminal.',
     html: 'true',
-    content: "<pre>mkdir -p $HOME/tmp; mktemp -d --tmpdir=$HOME/tmp/ | xargs -I % sh -c 'echo %; mv #{@product.app.path} %; rm -rf %;'</pre>"
+    content: "The following command moves this app to a local temporary directory and then deletes it:
+    <pre>mkdir -p $HOME/tmp; mktemp -d --tmpdir=$HOME/tmp/ | xargs -I % sh -c 'echo %; mv #{@product.app.path} %; rm -rf %;'</pre>
+    If it shows an error, then there may have been users running the app, causing open file handles to remain open and preventing the files from being completely deleted. But once these file handles close, the empty directory alone will remain."
   }
 %>
 
