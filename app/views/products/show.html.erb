@@ -161,6 +161,12 @@
 <% end %>
 
 <%= link_to 'Back', products_path(type: @type), class: 'btn btn-default' %>
+
+<style>
+  .popover {
+    max-width: 100%;
+  }
+</style>
 <%= button_tag 'Delete App',
   class: 'btn btn-danger pull-right',
   data: {
