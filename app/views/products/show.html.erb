@@ -160,29 +160,29 @@
 </div>
 <% end %>
 
+<%= link_to 'Back', products_path(type: @type), class: 'btn btn-default' %>
 
-<div class="popover-wide">
-  <%= link_to 'Back', products_path(type: @type), class: 'btn btn-default' %>
-  <style>
-    .popover-wide .popover {
-      max-width: 100%;
-    }
-  </style>
-  <%= button_tag 'Delete App',
-    class: 'btn btn-danger pull-right',
-    data: {
-      toggle: 'popover',
-      placement: 'auto',
-      title: 'Delete this app using the terminal.',
-      html: 'true',
-      content: "<p>The following command moves this app to a local temporary directory and then deletes it:</p>
-      <pre>APP_DIR=#{@product.app.path} && \\
-mkdir -p $HOME/tmp && \\
-mktemp -d --tmpdir=$HOME/tmp/ | \\
-xargs -I % sh -c \"echo % && mv $APP_DIR % && rm -rf %;\"</pre>
-      <p>If it shows an error, then there may have been users running the app, causing open file handles to remain open and preventing the files from being completely deleted. But once these file handles close, the empty directory alone will remain.</p>"
-    }
-  %>
+<%= button_tag 'Delete App',
+  class: 'btn btn-danger pull-right',
+  data: {
+    toggle: 'collapse',
+    target: '#delete-panel'
+  }
+%>
+
+<div id="delete-panel" class="collapse">
+  <br />
+  <div class="panel panel-danger">
+    <div class="panel-heading">Delete this app using the terminal.</div>
+    <div class="panel-body">
+      <p>The following command moves this app to a local temporary directory and then deletes it:</p>
+<pre>APP_DIR=<%= @product.app.path %> && \
+mkdir -p $HOME/tmp && \
+mktemp -d --tmpdir=$HOME/tmp/ | \
+xargs -I % sh -c "echo % && mv $APP_DIR % && rm -rf %;"</pre>
+      <p>If it shows an error, then there may have been users running the app, causing open file handles to remain open and preventing the files from being completely deleted. But once these file handles close, the empty directory alone will remain.</p>
+    </div>
+  </div>
 </div>
 
 <div class="modal fade" id="productCliModal" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
