@@ -59,9 +59,11 @@ gem 'rails_12factor', group: :production
 gem 'mocha', '~> 1.1', group: :test
 gem "spring", group: :test
 gem 'autoprefixer-rails', '~> 8.4'
+gem 'json-schema', '~> 2.8'
 
 # OOD specific gems
 gem 'ood_support', '~> 0.0.2'
 gem 'ood_appkit', '~> 1.0'
 gem 'ood_core', '~> 0.1'
 gem 'pbs', '~> 2.2.1'
+

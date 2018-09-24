@@ -1,0 +1,571 @@
+{
+  "description": "Config schema for OSC clusters",
+  "type": "object",
+  "title": "The Config Schema",
+  "required": [
+    "v2"
+  ],
+  "properties": {
+    "v2": {
+      "$id": "#/properties/v2",
+      "type": "object",
+      "title": "The V2 Schema",
+      "required": [
+        "metadata",
+        "login",
+        "job",
+        "custom",
+        "batch_connect"
+      ],
+      "properties": {
+        "metadata": {
+          "$id": "#/properties/v2/properties/metadata",
+          "type": "object",
+          "title": "The Metadata Schema",
+          "required": [
+            "title",
+            "url",
+            "hidden"
+          ],
+          "properties": {
+            "title": {
+              "$id": "#/properties/v2/properties/metadata/properties/title",
+              "type": "string",
+              "title": "The Title Schema",
+              "default": "",
+              "examples": [
+                "Owens"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "url": {
+              "$id": "#/properties/v2/properties/metadata/properties/url",
+              "type": "string",
+              "title": "The Url Schema",
+              "default": "",
+              "examples": [
+                "https://www.osc.edu/supercomputing/computing/owens"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "hidden": {
+              "$id": "#/properties/v2/properties/metadata/properties/hidden",
+              "type": "boolean",
+              "title": "The Hidden Schema",
+              "default": false,
+              "examples": [
+                false
+              ]
+            }
+          }
+        },
+        "login": {
+          "$id": "#/properties/v2/properties/login",
+          "type": "object",
+          "title": "The Login Schema",
+          "required": [
+            "host"
+          ],
+          "properties": {
+            "host": {
+              "$id": "#/properties/v2/properties/login/properties/host",
+              "type": "string",
+              "title": "The Host Schema",
+              "default": "",
+              "examples": [
+                "owens.osc.edu"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        "job": {
+          "$id": "#/properties/v2/properties/job",
+          "type": "object",
+          "title": "The Job Schema",
+          "required": [
+            "adapter",
+            "host",
+            "lib",
+            "bin",
+            "version"
+          ],
+          "properties": {
+            "adapter": {
+              "$id": "#/properties/v2/properties/job/properties/adapter",
+              "type": "string",
+              "title": "The Adapter Schema",
+              "default": "",
+              "examples": [
+                "torque"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "host": {
+              "$id": "#/properties/v2/properties/job/properties/host",
+              "type": "string",
+              "title": "The Host Schema",
+              "default": "",
+              "examples": [
+                "owens-batch.ten.osc.edu"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "lib": {
+              "$id": "#/properties/v2/properties/job/properties/lib",
+              "type": "string",
+              "title": "The Lib Schema",
+              "default": "",
+              "examples": [
+                "/opt/torque/lib64"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "bin": {
+              "$id": "#/properties/v2/properties/job/properties/bin",
+              "type": "string",
+              "title": "The Bin Schema",
+              "default": "",
+              "examples": [
+                "/opt/torque/bin"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "version": {
+              "$id": "#/properties/v2/properties/job/properties/version",
+              "type": "string",
+              "title": "The Version Schema",
+              "default": "",
+              "examples": [
+                "6.0.1"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        "custom": {
+          "$id": "#/properties/v2/properties/custom",
+          "type": "object",
+          "title": "The Custom Schema",
+          "required": [
+            "pbs",
+            "moab",
+            "rsv_query",
+            "ganglia"
+          ],
+          "properties": {
+            "pbs": {
+              "$id": "#/properties/v2/properties/custom/properties/pbs",
+              "type": "object",
+              "title": "The Pbs Schema",
+              "required": [
+                "host",
+                "lib",
+                "bin",
+                "version"
+              ],
+              "properties": {
+                "host": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/host",
+                  "type": "string",
+                  "title": "The Host Schema",
+                  "default": "",
+                  "examples": [
+                    "owens-batch.ten.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "lib": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/lib",
+                  "type": "string",
+                  "title": "The Lib Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/lib64"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "bin": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/bin",
+                  "type": "string",
+                  "title": "The Bin Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/bin"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "version": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/version",
+                  "type": "string",
+                  "title": "The Version Schema",
+                  "default": "",
+                  "examples": [
+                    "6.0.1"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            },
+            "moab": {
+              "$id": "#/properties/v2/properties/custom/properties/moab",
+              "type": "object",
+              "title": "The Moab Schema",
+              "required": [
+                "host",
+                "bin",
+                "version",
+                "homedir"
+              ],
+              "properties": {
+                "host": {
+                  "$id": "#/properties/v2/properties/custom/properties/moab/properties/host",
+                  "type": "string",
+                  "title": "The Host Schema",
+                  "default": "",
+                  "examples": [
+                    "owens-batch.ten.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "bin": {
+                  "$id": "#/properties/v2/properties/custom/properties/moab/properties/bin",
+                  "type": "string",
+                  "title": "The Bin Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/moab/bin"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "version": {
+                  "$id": "#/properties/v2/properties/custom/properties/moab/properties/version",
+                  "type": "string",
+                  "title": "The Version Schema",
+                  "default": "",
+                  "examples": [
+                    "9.0.1"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "homedir": {
+                  "$id": "#/properties/v2/properties/custom/properties/moab/properties/homedir",
+                  "type": "string",
+                  "title": "The Homedir Schema",
+                  "default": "",
+                  "examples": [
+                    "/var/spool/moab"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            },
+            "rsv_query": {
+              "$id": "#/properties/v2/properties/custom/properties/rsv_query",
+              "type": "object",
+              "title": "The Rsv_query Schema",
+              "required": [
+                "torque_host",
+                "torque_lib",
+                "torque_bin",
+                "torque_version",
+                "moab_host",
+                "moab_bin",
+                "moab_version",
+                "moab_homedir",
+                "acls"
+              ],
+              "properties": {
+                "torque_host": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/torque_host",
+                  "type": "string",
+                  "title": "The Torque_host Schema",
+                  "default": "",
+                  "examples": [
+                    "owens-batch.ten.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "torque_lib": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/torque_lib",
+                  "type": "string",
+                  "title": "The Torque_lib Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/lib64"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "torque_bin": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/torque_bin",
+                  "type": "string",
+                  "title": "The Torque_bin Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/bin"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "torque_version": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/torque_version",
+                  "type": "string",
+                  "title": "The Torque_version Schema",
+                  "default": "",
+                  "examples": [
+                    "6.0.1"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "moab_host": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/moab_host",
+                  "type": "string",
+                  "title": "The Moab_host Schema",
+                  "default": "",
+                  "examples": [
+                    "owens-batch.ten.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "moab_bin": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/moab_bin",
+                  "type": "string",
+                  "title": "The Moab_bin Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/moab/bin"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "moab_version": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/moab_version",
+                  "type": "string",
+                  "title": "The Moab_version Schema",
+                  "default": "",
+                  "examples": [
+                    "9.0.1"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "moab_homedir": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/moab_homedir",
+                  "type": "string",
+                  "title": "The Moab_homedir Schema",
+                  "default": "",
+                  "examples": [
+                    "/var/spool/moab"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "acls": {
+                  "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls",
+                  "type": "array",
+                  "title": "The Acls Schema",
+                  "items": {
+                    "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls/items",
+                    "type": "object",
+                    "title": "The Items Schema",
+                    "required": [
+                      "adapter",
+                      "groups",
+                      "type"
+                    ],
+                    "properties": {
+                      "adapter": {
+                        "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls/items/properties/adapter",
+                        "type": "string",
+                        "title": "The Adapter Schema",
+                        "default": "",
+                        "examples": [
+                          "group"
+                        ],
+                        "pattern": "^(.*)$"
+                      },
+                      "groups": {
+                        "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls/items/properties/groups",
+                        "type": "array",
+                        "title": "The Groups Schema",
+                        "items": {
+                          "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls/items/properties/groups/items",
+                          "type": "string",
+                          "title": "The Items Schema",
+                          "default": "",
+                          "examples": [
+                            "sysall",
+                            "sappall",
+                            "clntall"
+                          ],
+                          "pattern": "^(.*)$"
+                        }
+                      },
+                      "type": {
+                        "$id": "#/properties/v2/properties/custom/properties/rsv_query/properties/acls/items/properties/type",
+                        "type": "string",
+                        "title": "The Type Schema",
+                        "default": "",
+                        "examples": [
+                          "blacklist"
+                        ],
+                        "pattern": "^(.*)$"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "ganglia": {
+              "$id": "#/properties/v2/properties/custom/properties/ganglia",
+              "type": "object",
+              "title": "The Ganglia Schema",
+              "required": [
+                "host",
+                "scheme",
+                "segments",
+                "req_query",
+                "opt_query",
+                "version"
+              ],
+              "properties": {
+                "host": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/host",
+                  "type": "string",
+                  "title": "The Host Schema",
+                  "default": "",
+                  "examples": [
+                    "ganglia.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "scheme": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/scheme",
+                  "type": "string",
+                  "title": "The Scheme Schema",
+                  "default": "",
+                  "examples": [
+                    "https://"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "segments": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/segments",
+                  "type": "array",
+                  "title": "The Segments Schema",
+                  "items": {
+                    "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/segments/items",
+                    "type": "string",
+                    "title": "The Items Schema",
+                    "default": "",
+                    "examples": [
+                      "graph.php"
+                    ],
+                    "pattern": "^(.*)$"
+                  }
+                },
+                "req_query": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/req_query",
+                  "type": "object",
+                  "title": "The Req_query Schema",
+                  "required": [
+                    "c"
+                  ],
+                  "properties": {
+                    "c": {
+                      "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/req_query/properties/c",
+                      "type": "string",
+                      "title": "The C Schema",
+                      "default": "",
+                      "examples": [
+                        "Owens"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                },
+                "opt_query": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/opt_query",
+                  "type": "object",
+                  "title": "The Opt_query Schema",
+                  "required": [
+                    "h"
+                  ],
+                  "properties": {
+                    "h": {
+                      "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/opt_query/properties/h",
+                      "type": "string",
+                      "title": "The H Schema",
+                      "default": "",
+                      "examples": [
+                        "%{h}.ten.osc.edu"
+                      ],
+                      "pattern": "^(.*)$"
+                    }
+                  }
+                },
+                "version": {
+                  "$id": "#/properties/v2/properties/custom/properties/ganglia/properties/version",
+                  "type": "string",
+                  "title": "The Version Schema",
+                  "default": "",
+                  "examples": [
+                    "3"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            }
+          }
+        },
+        "batch_connect": {
+          "$id": "#/properties/v2/properties/batch_connect",
+          "type": "object",
+          "title": "The Batch_connect Schema",
+          "required": [
+            "basic",
+            "vnc"
+          ],
+          "properties": {
+            "basic": {
+              "$id": "#/properties/v2/properties/batch_connect/properties/basic",
+              "type": "object",
+              "title": "The Basic Schema",
+              "required": [
+                "script_wrapper"
+              ],
+              "properties": {
+                "script_wrapper": {
+                  "$id": "#/properties/v2/properties/batch_connect/properties/basic/properties/script_wrapper",
+                  "type": "string",
+                  "title": "The Script_wrapper Schema",
+                  "default": "",
+                  "examples": [
+                    "module restore\n%s"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            },
+            "vnc": {
+              "$id": "#/properties/v2/properties/batch_connect/properties/vnc",
+              "type": "object",
+              "title": "The Vnc Schema",
+              "required": [
+                "script_wrapper"
+              ],
+              "properties": {
+                "script_wrapper": {
+                  "$id": "#/properties/v2/properties/batch_connect/properties/vnc/properties/script_wrapper",
+                  "type": "string",
+                  "title": "The Script_wrapper Schema",
+                  "default": "",
+                  "examples": [
+                    "module restore\nmodule load ondemand-vnc\n%s"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

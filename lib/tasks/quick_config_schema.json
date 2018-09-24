@@ -1,0 +1,242 @@
+{
+  "description": "Config schema for OSC quick clusters",
+  "type": "object",
+  "title": "The Config Schema",
+  "required": [
+    "v2"
+  ],
+  "properties": {
+    "v2": {
+      "$id": "#/properties/v2",
+      "type": "object",
+      "title": "The V2 Schema",
+      "required": [
+        "metadata",
+        "job",
+        "custom",
+        "batch_connect"
+      ],
+      "properties": {
+        "metadata": {
+          "$id": "#/properties/v2/properties/metadata",
+          "type": "object",
+          "title": "The Metadata Schema",
+          "required": [
+            "title",
+            "url",
+            "hidden"
+          ],
+          "properties": {
+            "title": {
+              "$id": "#/properties/v2/properties/metadata/properties/title",
+              "type": "string",
+              "title": "The Title Schema",
+              "default": "",
+              "examples": [
+                "Quick"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "url": {
+              "$id": "#/properties/v2/properties/metadata/properties/url",
+              "type": "string",
+              "title": "The Url Schema",
+              "default": "",
+              "examples": [
+                ""
+              ],
+              "pattern": "^(.*)$"
+            },
+            "hidden": {
+              "$id": "#/properties/v2/properties/metadata/properties/hidden",
+              "type": "boolean",
+              "title": "The Hidden Schema",
+              "default": false,
+              "examples": [
+                true
+              ]
+            }
+          }
+        },
+        "job": {
+          "$id": "#/properties/v2/properties/job",
+          "type": "object",
+          "title": "The Job Schema",
+          "required": [
+            "adapter",
+            "host",
+            "lib",
+            "bin",
+            "version"
+          ],
+          "properties": {
+            "adapter": {
+              "$id": "#/properties/v2/properties/job/properties/adapter",
+              "type": "string",
+              "title": "The Adapter Schema",
+              "default": "",
+              "examples": [
+                "torque"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "host": {
+              "$id": "#/properties/v2/properties/job/properties/host",
+              "type": "string",
+              "title": "The Host Schema",
+              "default": "",
+              "examples": [
+                "quick-batch.ten.osc.edu"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "lib": {
+              "$id": "#/properties/v2/properties/job/properties/lib",
+              "type": "string",
+              "title": "The Lib Schema",
+              "default": "",
+              "examples": [
+                "/opt/torque/lib64"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "bin": {
+              "$id": "#/properties/v2/properties/job/properties/bin",
+              "type": "string",
+              "title": "The Bin Schema",
+              "default": "",
+              "examples": [
+                "/opt/torque/bin"
+              ],
+              "pattern": "^(.*)$"
+            },
+            "version": {
+              "$id": "#/properties/v2/properties/job/properties/version",
+              "type": "string",
+              "title": "The Version Schema",
+              "default": "",
+              "examples": [
+                "6.0.2"
+              ],
+              "pattern": "^(.*)$"
+            }
+          }
+        },
+        "custom": {
+          "$id": "#/properties/v2/properties/custom",
+          "type": "object",
+          "title": "The Custom Schema",
+          "required": [
+            "pbs"
+          ],
+          "properties": {
+            "pbs": {
+              "$id": "#/properties/v2/properties/custom/properties/pbs",
+              "type": "object",
+              "title": "The Pbs Schema",
+              "required": [
+                "host",
+                "lib",
+                "bin",
+                "version"
+              ],
+              "properties": {
+                "host": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/host",
+                  "type": "string",
+                  "title": "The Host Schema",
+                  "default": "",
+                  "examples": [
+                    "quick-batch.ten.osc.edu"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "lib": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/lib",
+                  "type": "string",
+                  "title": "The Lib Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/lib64"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "bin": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/bin",
+                  "type": "string",
+                  "title": "The Bin Schema",
+                  "default": "",
+                  "examples": [
+                    "/opt/torque/bin"
+                  ],
+                  "pattern": "^(.*)$"
+                },
+                "version": {
+                  "$id": "#/properties/v2/properties/custom/properties/pbs/properties/version",
+                  "type": "string",
+                  "title": "The Version Schema",
+                  "default": "",
+                  "examples": [
+                    "6.0.2"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            }
+          }
+        },
+        "batch_connect": {
+          "$id": "#/properties/v2/properties/batch_connect",
+          "type": "object",
+          "title": "The Batch_connect Schema",
+          "required": [
+            "basic",
+            "vnc"
+          ],
+          "properties": {
+            "basic": {
+              "$id": "#/properties/v2/properties/batch_connect/properties/basic",
+              "type": "object",
+              "title": "The Basic Schema",
+              "required": [
+                "script_wrapper"
+              ],
+              "properties": {
+                "script_wrapper": {
+                  "$id": "#/properties/v2/properties/batch_connect/properties/basic/properties/script_wrapper",
+                  "type": "string",
+                  "title": "The Script_wrapper Schema",
+                  "default": "",
+                  "examples": [
+                    "module restore\n%s"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            },
+            "vnc": {
+              "$id": "#/properties/v2/properties/batch_connect/properties/vnc",
+              "type": "object",
+              "title": "The Vnc Schema",
+              "required": [
+                "script_wrapper"
+              ],
+              "properties": {
+                "script_wrapper": {
+                  "$id": "#/properties/v2/properties/batch_connect/properties/vnc/properties/script_wrapper",
+                  "type": "string",
+                  "title": "The Script_wrapper Schema",
+                  "default": "",
+                  "examples": [
+                    "module restore\nmodule load ondemand-vnc\n%s"
+                  ],
+                  "pattern": "^(.*)$"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
