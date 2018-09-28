@@ -8,7 +8,7 @@ namespace :test do
 
     OodAppkit.clusters.each do |cluster|
       desc "Test the cluster: #{cluster.id}"
-      task cluster.id => ["validate:clusters:/etc/ood/config/clusters.d/#{cluster.id}.yml", :environment, WORKDIR] do
+      task cluster.id => ["validate:clusters:#{(Pathname.new(ENV['OOD_CLUSTERS'] || "/etc/ood/config/clusters.d/").expand_path).join("#{cluster.id}.yml")}", :environment, WORKDIR] do
         unless cluster.job_allow?
           puts "Skipping '#{cluster.id}' as it doesn't allow job submission."
           next
