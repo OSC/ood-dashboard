@@ -35,7 +35,7 @@ Rails.application.routes.draw do
     resources :products, except: :destroy, param: :name, constraints: { type: /dev|usr/ } do
       nested do
         scope ':context' do
-          resources :permissions, only: [:index, :new, :create], param: :name
+          resources :permissions, only: [:index, :new, :create, :destroy], param: :name
         end
       end
       member do
