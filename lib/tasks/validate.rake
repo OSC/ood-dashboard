@@ -22,6 +22,10 @@ namespace :validate do
                         puts "Test for '#{config}' FAILED!"
                         puts "Psych::SyntaxError: #{e}"
                         is_failed = true
+                    rescue
+                        puts "Test for '#{config}' FAILED!"
+                        puts "Failed to load Yaml file"
+                        is_failed = true
                     else
                         if (JSON.parse(config_json)["v2"]["metadata"]["title"]).downcase.include?('quick')
                             schema = File.read((File.dirname(__FILE__) +'/quick_config_schema.json'))
@@ -46,6 +50,10 @@ namespace :validate do
                         rescue Psych::SyntaxError => e
                             puts "Test for '#{f}' FAILED!"
                             puts "Psych::SyntaxError: #{e}"
+                            is_failed = true
+                        rescue
+                            puts "Test for '#{config}' FAILED!"
+                            puts "Failed to load Yaml file"
                             is_failed = true
                         else
                             if (JSON.parse(config_json)["v2"]["metadata"]["title"]).downcase.include?('quick')
@@ -81,6 +89,10 @@ namespace :validate do
                 rescue Psych::SyntaxError => e
                     puts "Test for '#{config}' FAILED!"
                     puts "Psych::SyntaxError: #{e}"
+                    is_failed = true
+                rescue
+                    puts "Test for '#{config}' FAILED!"
+                    puts "Failed to load Yaml file"
                     is_failed = true
                 else
                     if (JSON.parse(config_json)["v2"]["metadata"]["title"]).downcase.include?('quick')
