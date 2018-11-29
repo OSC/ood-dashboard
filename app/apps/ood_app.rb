@@ -29,6 +29,10 @@ class OodApp
     batch_connect_app? && batch_connect.sub_app_list.none?(&:valid?)
   end
 
+  def should_appear_in_nav?
+    manifest? && ! (invalid_batch_connect_app? || category.empty?)
+  end
+
   def initialize(router)
     @router = router
   end
@@ -62,7 +66,7 @@ class OodApp
         OodAppLink.new(
           title: "Home Directory",
           description: manifest.description,
-          url: OodAppkit.files.url(path: Dir.home),
+          url: OodAppkit::Urls::Files.new(base_url: url).url(path: Dir.home),
           icon_uri: "fas://home",
           caption: caption,
           new_tab: true
@@ -72,7 +76,7 @@ class OodApp
           OodAppLink.new(
             title: path.to_s,
             description: manifest.description,
-            url: OodAppkit.files.url(path: path),
+            url: OodAppkit::Urls::Files.new(base_url: url).url(path: path),
             icon_uri: "fas://folder",
             caption: caption,
             new_tab: true
@@ -91,7 +95,7 @@ class OodApp
           OodAppLink.new(
             title: "Shell Access",
             description: manifest.description,
-            url: OodAppkit.shell.url,
+            url: OodAppkit::Urls::Shell.new(base_url: url).url,
             icon_uri: "fas://terminal",
             caption: caption,
             new_tab: true
@@ -102,7 +106,7 @@ class OodApp
           OodAppLink.new(
             title: "#{cluster.metadata.title || cluster.id.to_s.titleize} Shell Access",
             description: manifest.description,
-            url: OodAppkit.shell.url(host: cluster.login.host),
+            url: OodAppkit::Urls::Shell.new(base_url: url).url(host: cluster.login.host),
             icon_uri: "fas://terminal",
             caption: caption,
             new_tab: true
@@ -151,7 +155,11 @@ class OodApp
   end
 
   def category
-    manifest.category.empty? ? router.category : manifest.category
+    if (! router.category.empty?) && manifest.category.empty?
+      router.category
+    else
+      manifest.category
+    end
   end
 
   def subcategory
@@ -193,7 +201,15 @@ class OodApp
       setup = "./bin/setup-production"
       Dir.chdir(path) do
         if File.exist?(setup) && File.executable?(setup)
-          output = `bundle exec #{setup} 2>&1`
+          # FIXME: write a test for this
+
+          # Prepend #{path}/bin to the PATH so that bin/ruby wrapper is used if
+          # it exists - in other words, /usr/bin/env ruby will resolve to #{path}/bin/ruby
+          # instead of whatever ruby version the dashboard is using
+          #
+          # This makes the execution of the setup-production script use the same ruby versions
+          # that Passenger uses when launching the app.
+          output = `PATH=#{path.join('bin').to_s}:$PATH bundle exec #{setup} 2>&1`
           unless $?.success?
             msg = "Per user setup failed for script at #{path}/#{setup} "
             msg += "for user #{Etc.getpwuid.name} with output: #{output}"

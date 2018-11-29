@@ -13,6 +13,9 @@ Rails.application.routes.draw do
   get "dashboard/index"
   get "logout" => "dashboard#logout"
 
+  # analytics request appears in the access logs and google analytics
+  get "analytics/:type" => proc { [204, {}, ['']] }, as: "analytics"
+
 
   get "apps/show/:name(/:type(/:owner))" => "apps#show", as: "app", defaults: { type: "sys" }
   get "apps/icon/:name(/:type(/:owner))" => "apps#icon", as: "app_icon", defaults: { type: "sys" }
@@ -29,7 +32,7 @@ Rails.application.routes.draw do
 
   # App administration
   scope 'admin/:type', constraints: Authz::AppDeveloperConstraint do
-    resources :products, param: :name, constraints: { type: /dev|usr/ } do
+    resources :products, except: :destroy, param: :name, constraints: { type: /dev|usr/ } do
       nested do
         scope ':context' do
           resources :permissions, only: [:index, :new, :create, :destroy], param: :name
