@@ -106,7 +106,7 @@ class BatchConnect::SessionContextsController < ApplicationController
     def session_contexts_params
       # FIXME: this may cause problems too - it prevents sending in the web
       # form any form "attribute" that is not specified as an attribute in the yaml file
-      params.require(:batch_connect_session_context).permit(@session_context.attributes.keys)
+      params.require(:batch_connect_session_context).permit(@session_context.attributes.keys + [:cluster])
     end
 
     # Store session context into a cache file
