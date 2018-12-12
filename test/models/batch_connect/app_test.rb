@@ -25,21 +25,6 @@ class BatchConnect::AppTest < ActiveSupport::TestCase
     end
   end
 
-  test "multiple cluster dependencies" do
-    BatchConnect::App.any_instance.stubs(:clusters).returns(OodCore::Clusters.new([
-       OodCore::Cluster.new({id: 'owens', job: {adapter: 'slurm'}}),
-       OodCore::Cluster.new({id: 'pitzer', job: {adapter: 'slurm'}}),
-       OodCore::Cluster.new({id: 'cluster_without_jobs'}),
-    ]))
-
-    with_batch_connect_yaml("---\ncluster: [owens, pitzer, bad_cluster, cluster_without_jobs]") do |app, app_path|
-      assert_equal [:owens, :pitzer, :bad_cluster, :cluster_without_jobs], app.cluster_ids
-      refute app.valid_cluster_ids?, ":bad_cluster should be recognized as an invalid cluster id"
-      assert_equal [:owens, :pitzer], app.cluster_dependencies.map(&:id)
-      assert_equal [["Owens", "owens"], ["Pitzer", "pitzer"]], app.default_cluster_attribute_options[:options]
-    end
-  end
-
   test "one cluster dependency" do
     BatchConnect::App.any_instance.stubs(:clusters).returns(OodCore::Clusters.new([
        OodCore::Cluster.new({id: 'owens', job: {adapter: 'slurm'}}),
