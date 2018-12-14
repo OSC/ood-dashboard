@@ -145,6 +145,10 @@ class ConfigurationSingleton
 
     Pathname.new(root).expand_path
   end
+  
+  def rss_announcements_url
+    ENV['RSS_ANNOUNCEMENTS_URL']
+  end
 
   private
 
@@ -183,4 +187,5 @@ class ConfigurationSingleton
   def to_bool(value)
     ! FALSE_VALUES.include?(value)
   end
+  
 end

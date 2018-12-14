@@ -1,3 +1,7 @@
+<% if Configuration.rss_announcements_url %>
+  <div class="rss_announcements" data-url="<%= Configuration.rss_announcements_url %>"></div>
+<% end %>
+
 <% if Configuration.logo_img? %>
   <%= logo_image_tag(Configuration.logo_img) %>
 <% end %>

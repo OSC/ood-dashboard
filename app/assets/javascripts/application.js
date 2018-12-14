@@ -40,3 +40,30 @@ $(document).ready(function(){
 $(document).ready(function(){
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+// RSS alerts
+$(document).ready(function() {
+
+  var html2text = function(html) {
+    return $($.parseHTML(html)).text();
+  }
+  
+  $('.rss_announcements').each(function(index, announcement) {
+    var rssurl = announcement.getAttribute('data-url');
+    $.get(rssurl, function(data) {
+      var $xml = $(data);
+      $xml.find("item").each(function() {
+        var $this = $(this),
+          item = {
+            title: $this.find("title").text(),
+            link: $this.find("link").text(),
+            description: $this.find("description").text(),
+            pubDate: $this.find("pubDate").text(),
+            author: $this.find("author").text()
+          }
+        $(announcement).prepend('<div class="alert alert-warning alert-dismissible"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + item.title + '</strong><br>' + html2text(item.description) + '</div>');
+      });
+    });
+  });
+
+});
