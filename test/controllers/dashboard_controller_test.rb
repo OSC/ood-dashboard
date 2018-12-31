@@ -4,7 +4,7 @@ class DashboardControllerTest < ActionController::TestCase
 
   def setup
     SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys"))
-    OodFilesApp.any_instance.stubs(:favorite_paths).returns([Pathname.new("/fs/scratch/efranz")])
+    OodFilesApp.any_instance.stubs(:favorite_paths).returns([ FavoritePath.new(Pathname.new("/fs/scratch/efranz"), title: "Home Directory") ])
   end
 
   def teardown
