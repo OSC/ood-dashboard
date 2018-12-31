@@ -147,7 +147,7 @@ class ConfigurationSingleton
   end
   
   def rss_announcements_url
-    ENV['RSS_ANNOUNCEMENTS_URL']
+    ENV['OOD_RSS_ANNOUNCEMENTS_URL']
   end
 
   private
