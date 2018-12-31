@@ -4,7 +4,7 @@ class DashboardControllerTest < ActionController::TestCase
 
   def setup
     SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys"))
-    OodFilesApp.any_instance.stubs(:favorite_paths).returns([ FavoritePath.new(Pathname.new("/fs/scratch/efranz"), title: "Home Directory") ])
+    OodFilesApp.any_instance.stubs(:favorite_paths).returns([ FavoritePath.new(Pathname.new("/fs/scratch/efranz"), title: "Scratch") ])
   end
 
   def teardown
@@ -44,8 +44,8 @@ class DashboardControllerTest < ActionController::TestCase
     dditems = dropdown_list_items(dropdown_list('Files'))
     assert dditems.any?, "dropdown list items not found"
     assert_equal [
-      "Home Directory",
-      "/fs/scratch/efranz"], dditems
+      "Home Directory #{ENV['HOME']}",
+      "Scratch /fs/scratch/efranz"], dditems
   end
 
   test "should create Clusters dropdown with valid clusters that are alphabetically ordered by title" do
