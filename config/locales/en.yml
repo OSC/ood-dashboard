@@ -21,3 +21,9 @@
 
 en:
   hello: "Hello world"
+  english_only: "English-only translation"
+  # ood:
+    # dashboard:
+      # tagline: "config/locales English tagline"
+pirate:
+  hi: "Yo ho from config/locales!"
