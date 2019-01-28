@@ -145,6 +145,10 @@ class ConfigurationSingleton
 
     Pathname.new(root).expand_path
   end
+  
+  def locale
+    ENV['OOD_LOCALE'].to_sym || I18n.default_locale
+  end
 
   private
 
