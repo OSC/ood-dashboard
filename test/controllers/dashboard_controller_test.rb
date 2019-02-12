@@ -108,20 +108,13 @@ class DashboardControllerTest < ActionController::TestCase
 
     get :index
 
-    dd = dropdown_list('Interactive Apps')
-    dditems = dropdown_list_items(dd)
-    assert dditems.any?, "dropdown list items not found"
     assert_equal [
       {header: "Apps"},
       "Jupyter Notebook",
       "Paraview",
       :divider,
       {header: "Desktops"},
-      "Oakley Desktop"], dditems
-
-    assert_select dd, "li a", "Oakley Desktop" do |link|
-      assert_equal "/batch_connect/sys/bc_desktop/oakley/session_contexts/new", link.first['href'], "Desktops link is incorrect"
-    end
+      "Oakley Desktop"], dropdown_list_items(dropdown_list('Interactive Apps'))
   end
 
   test "should create Interactive Apps dropdown (with manifests)" do
@@ -134,21 +127,30 @@ class DashboardControllerTest < ActionController::TestCase
       OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
 
       # add manifests
-      base_path.join('bc_jupyter', 'manifest.yml').tap {|p| p.parent.mkpath }.write "---\nname: Jupyter Notebook\ncategory: Interactive Apps\nsubcategory: Apps\nicon: fa://gears\nrole: batch_connect\n"
-      base_path.join('bc_desktop', 'local', 'oakley.manifest.yml').tap {|p| p.parent.mkpath }.write "---\nname: Oakley Desktop\ncategory: Interactive Apps\nsubcategory: Desktops\nrole: batch_connect\n"
+      base_path.join('bc_jupyter', 'manifest.yml').tap {|p| p.parent.mkpath }.write <<~MANIFEST
+        ---
+        name: Jupyter Notebook
+        category: Interactive Apps
+        subcategory: Apps
+        role: batch_connect
+      MANIFEST
+      base_path.join('bc_desktop', 'local', 'oakley.manifest.yml').tap {|p| p.parent.mkpath }.write <<~MANIFEST
+        ---
+        name: Oakley Desktop
+        category: Interactive Apps
+        subcategory: Desktops
+        role: batch_connect
+      MANIFEST
 
       get :index
 
-      dd = dropdown_list('Interactive Apps')
-      dditems = dropdown_list_items(dd)
-      assert dditems.any?, "dropdown list items not found"
       assert_equal [
         {header: "Apps"},
         "Jupyter Notebook",
         "Paraview",
         :divider,
         {header: "Desktops"},
-        "Oakley Desktop"], dditems
+        "Oakley Desktop"], dropdown_list_items(dropdown_list('Interactive Apps'))
     end
   end
 
