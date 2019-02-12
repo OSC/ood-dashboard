@@ -175,6 +175,10 @@ class ConfigurationSingleton
     Pathname.new(ENV['OOD_LOCALES_ROOT'] || "/etc/ood/config/locales")
   end
 
+  def render_batch_connect_erb_for_nav?
+    to_bool(ENV['OOD_RENDER_BATCH_CONNECT_ERB_FOR_NAV'])
+  end
+
   private
 
   # The environment

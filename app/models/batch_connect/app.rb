@@ -79,15 +79,31 @@ module BatchConnect
     # Title for the batch connect app
     # @return [String] title of app
     def title
+      if Configuration.render_batch_connect_erb_for_nav?
+        title_from_erb
+      else
+        default_title
+      end
+    end
+
+    # Title to use when rendering web form
+    def title_from_erb
       form_config.fetch(:title, default_title)
     end
 
     # Default title for the batch connect app
     # @return [String] default title of app
     def default_title
-      title  = ood_app.title
-      title += ": #{sub_app.titleize}" if sub_app
-      title
+      if sub_app
+        manifest = Manifest.load(sub_app_root.join("#{sub_app}.manifest.yml").to_s)
+        if manifest.valid? && ! manifest.name.empty?
+          manifest.name
+        else
+          sub_app.titleize
+        end
+      else
+        ood_app.title
+      end
     end
 
     # Description for the batch connect app

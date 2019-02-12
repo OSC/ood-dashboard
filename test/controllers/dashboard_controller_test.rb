@@ -78,7 +78,31 @@ class DashboardControllerTest < ActionController::TestCase
     end
   end
 
-  test "should create Interactive Apps dropdown" do
+  test "should create Interactive Apps dropdown (with no manifests)" do
+    Configuration.stubs(:render_batch_connect_erb_for_nav?).returns(false)
+    SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys_with_interactive_apps"))
+    OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
+
+    get :index
+
+    dd = dropdown_list('Interactive Apps')
+    dditems = dropdown_list_items(dd)
+    assert dditems.any?, "dropdown list items not found"
+    assert_equal [
+      {header: "Apps"},
+      "Jupyter",
+      "Paraview",
+      :divider,
+      {header: "Desktops"},
+      "Oakley"], dditems
+
+    assert_select dd, "li a", "Oakley" do |link|
+      assert_equal "/batch_connect/sys/bc_desktop/oakley/session_contexts/new", link.first['href'], "Desktops link is incorrect"
+    end
+  end
+
+  test "should create Interactive Apps dropdown (with erb)" do
+    Configuration.stubs(:render_batch_connect_erb_for_nav?).returns(true)
     SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys_with_interactive_apps"))
     OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
 
@@ -97,6 +121,34 @@ class DashboardControllerTest < ActionController::TestCase
 
     assert_select dd, "li a", "Oakley Desktop" do |link|
       assert_equal "/batch_connect/sys/bc_desktop/oakley/session_contexts/new", link.first['href'], "Desktops link is incorrect"
+    end
+  end
+
+  test "should create Interactive Apps dropdown (with manifests)" do
+    Dir.mktmpdir do |dir|
+      base_path = Pathname.new(dir).join('root')
+      FileUtils.cp_r(Rails.root.join("test/fixtures/sys_with_interactive_apps").to_s, base_path.to_s)
+
+      Configuration.stubs(:render_batch_connect_erb_for_nav?).returns(false)
+      SysRouter.stubs(:base_path).returns(base_path)
+      OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
+
+      # add manifests
+      base_path.join('bc_jupyter', 'manifest.yml').tap {|p| p.parent.mkpath }.write "---\nname: Jupyter Notebook\ncategory: Interactive Apps\nsubcategory: Apps\nicon: fa://gears\nrole: batch_connect\n"
+      base_path.join('bc_desktop', 'local', 'oakley.manifest.yml').tap {|p| p.parent.mkpath }.write "---\nname: Oakley Desktop\ncategory: Interactive Apps\nsubcategory: Desktops\nrole: batch_connect\n"
+
+      get :index
+
+      dd = dropdown_list('Interactive Apps')
+      dditems = dropdown_list_items(dd)
+      assert dditems.any?, "dropdown list items not found"
+      assert_equal [
+        {header: "Apps"},
+        "Jupyter Notebook",
+        "Paraview",
+        :divider,
+        {header: "Desktops"},
+        "Oakley Desktop"], dditems
     end
   end
 

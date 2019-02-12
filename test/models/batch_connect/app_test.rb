@@ -25,15 +25,17 @@ class BatchConnect::AppTest < ActiveSupport::TestCase
     Dir.mktmpdir { |dir|
       r = PathRouter.new(dir + "/missing_app")
       assert_equal "Missing App", BatchConnect::App.new(router: r).title
-      assert_equal "Missing App: Owens Vdi", BatchConnect::App.new(router: r, sub_app: "owens-vdi").title
+      assert_equal "Owens Vdi", BatchConnect::App.new(router: r, sub_app: "owens-vdi").title
     }
   end
 
   test "form.yml.erb can use __FILE__" do
     Dir.mktmpdir { |dir|
+
       r = PathRouter.new(dir)
       r.path.join("form.yml.erb").write("---\ntitle: <%= File.expand_path(File.dirname(__FILE__)) %>")
 
+      Configuration.stubs(:render_batch_connect_erb_for_nav?).returns(true)
       app = BatchConnect::App.new(router: r)
       assert_equal dir, app.title, "When rendering form.yml.erb __FILE__ doesn't return correct value"
     }
