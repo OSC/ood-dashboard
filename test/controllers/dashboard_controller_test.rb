@@ -83,6 +83,8 @@ class DashboardControllerTest < ActionController::TestCase
     SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys_with_interactive_apps"))
     OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
 
+    BatchConnect::App.any_instance.expects(:read_yaml_erb).with(any_parameters).never
+
     get :index
 
     dd = dropdown_list('Interactive Apps')
@@ -105,6 +107,7 @@ class DashboardControllerTest < ActionController::TestCase
     Configuration.stubs(:render_batch_connect_erb_for_nav?).returns(true)
     SysRouter.stubs(:base_path).returns(Rails.root.join("test/fixtures/sys_with_interactive_apps"))
     OodAppkit.stubs(:clusters).returns(OodCore::Clusters.load_file("test/fixtures/config/clusters.d"))
+
 
     get :index
 
@@ -141,6 +144,8 @@ class DashboardControllerTest < ActionController::TestCase
         subcategory: Desktops
         role: batch_connect
       MANIFEST
+
+      BatchConnect::App.any_instance.expects(:read_yaml_erb).with(any_parameters).never
 
       get :index
 

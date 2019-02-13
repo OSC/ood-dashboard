@@ -79,15 +79,6 @@ module BatchConnect
     # Title for the batch connect app
     # @return [String] title of app
     def title
-      if Configuration.render_batch_connect_erb_for_nav?
-        title_from_erb
-      else
-        default_title
-      end
-    end
-
-    # Title to use when rendering web form
-    def title_from_erb
       form_config.fetch(:title, default_title)
     end
 
@@ -142,9 +133,22 @@ module BatchConnect
       OodAppkit.clusters[cluster_id] if cluster_id
     end
 
+
+    # Whether this is an app the user is allowed to use
+    # @return [Boolean] whether user is authorized to use app
+    def authorized?
+      cluster ? cluster.job_allow? : true
+    end
+
     # Whether this is a valid app the user can use
     # @return [Boolean] whether valid app
     def valid?
+      # FIXME: validation reason and valid needs revisited
+      # we should display error when loading page if
+      #
+      #   form config is malformed - erb or yaml error should be displayed to
+      #   user/admin
+      #
       (! form_config.empty?) && cluster && cluster.job_allow?
     end
 
