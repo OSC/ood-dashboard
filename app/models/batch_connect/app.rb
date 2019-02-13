@@ -86,12 +86,7 @@ module BatchConnect
     # @return [String] default title of app
     def default_title
       if sub_app
-        manifest = Manifest.load(sub_app_root.join("#{sub_app}.manifest.yml").to_s)
-        if manifest.valid? && ! manifest.name.empty?
-          manifest.name
-        else
-          sub_app.titleize
-        end
+        sub_app_manifest.name.presence || sub_app.titleize
       else
         ood_app.title
       end
@@ -106,7 +101,21 @@ module BatchConnect
     # Default description for the batch connect app
     # @return [String] default description of app
     def default_description
-      ood_app.manifest.description
+      if sub_app
+        sub_app_manifest.name.presence || ood_app.manifest.description
+      else
+        ood_app.manifest.description
+      end
+    end
+
+    def sub_app_manifest
+      return @sub_app_manifest if defined?(@sub_app_manifest)
+
+      if sub_app
+        @sub_app_manifest = Manifest.load(sub_app_root.join("#{sub_app}.manifest.yml").to_s)
+      else
+        @sub_app_manifest = MissingManifest.new({})
+      end
     end
 
     def link
@@ -121,10 +130,15 @@ module BatchConnect
       )
     end
 
-    # Cluster id the batch connect app uses
+    #Cluster id the batch connect app uses
     # @return [String, nil] cluster id used by app
     def cluster_id
-      form_config.fetch(:cluster, nil)
+      # FIXME: if form_config is empty, use ood_app manifest
+      # this is so at OSC, for example we can have an app depend on
+      # Ruby and it be hidden from non Ruby users, and still avoid rendering
+      # erb. This needs to be fixed to handle multiple clusters when we add support
+      # for batch connect apps with multiple clusters.
+      form_config[:cluster] || sub_app_manifest.clusters.first || ood_app.manifest.clusters.first
     end
 
     # The cluster that the batch connect app uses

@@ -58,6 +58,7 @@ category: OSC
   # @option opts [String] :icon The icon used on the dashboard, optionally a Font Awesome tag
   # @option opts [String] :role Dashboard categorization
   # @option opts [String] :url An optional redirect URL
+  # @option opts [String, Array<String>] :clusters A cluster id or an array of cluster ids
   def initialize(opts)
     raise InvalidContentError.new unless(opts && opts.respond_to?(:to_h))
 
@@ -111,6 +112,13 @@ category: OSC
   # @return [String] role as string
   def role
     @manifest_options[:role] || ""
+  end
+
+  # Return array of the cluster ids for cluster(s) this app depends on
+  #
+  # @return [Array<String>] role as string
+  def clusters
+    Array.wrap(@manifest_options[:clusters]).compact
   end
 
   # Manifest objects are valid
