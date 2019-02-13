@@ -1,17 +1,13 @@
-<%= render partial: "shared/insufficient_quota", locals: { quotas: @my_quotas } %>
-
 <div class="row">
   <div class="col-md-9">
+    <%= render partial: 'shared/welcome' %>
+
     <% if @nav_groups.any? %>
     <p class="lead">Cluster access applications are available from the dropdown menus in the navbar above.
     <br>Custom shared apps are available below.</p>
     <% end %>
     <%= render partial: "catalog_link" %>
-  </div>
-</div>
 
-<div class="row">
-  <div class="col-md-9">
     <%= render(partial: "group", collection: @groups) || "<strong>No custom shared apps available.</strong>".html_safe %>
   </div>
   <div class="col-md-3">

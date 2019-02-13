@@ -6,6 +6,51 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+## [1.32.0] - 2019-02-07
+### Changed
+- Disable eager loading to speed initial load of the application
+
+### Fixed
+- Replaced missing MoTD formatter
+
+## [1.31.0] - 2019-01-30
+### Added
+- version string to footer
+- add support for localization of home page welcome text and motd title with
+  added setup to be able to add support for more localization options in the
+  future
+- the home page html (both logo and text) can now be customized using a single
+  html formatted string in /etc/ood/config/locales/en.yml with the `welcome_html`
+  key
+
+## [1.30.3] - 2019-01-11
+### Fixed
+- ood_core updated with critical bug fix for SGE
+- fix displaying "invalid" interactive appp launch button in developer views
+  [#434](https://github.com/OSC/ood-dashboard/issues/434)
+
+## [1.30.2] - 2019-01-02
+### Fixed
+- Fixes for Quotas and improved tests
+
+## [1.30.1] - 2018-12-31
+### Fixed
+- Fixes a divide by zero error in the Quota model when a resource is not limited
+
+## [1.30.0] - 2018-12-26
+### Fixed
+- Update `ood_core` to latest version for Torque and SGE bug fixes
+- Shortened quota alert
+
+## [1.29.0] - 2018-12-19
+### Added
+- Added ability to include JavaScript files to the form
+- Added experimental Grid Engine support
+
+### Changed
+- Changed logout message to inform users that they need to close their browsers to ensure logout
+- Changed precision of time reporting of Batch Connect
+- Changed development application root to be defined by the environment variable `OOD_DEV_APPS_ROOT`
 
 ## [1.28.0] - 2018-11-30
 ### Added
@@ -425,7 +470,14 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Remove unused assets.
 
 
-[Unreleased]: https://github.com/OSC/ood-dashboard/compare/v1.28.0...HEAD
+[Unreleased]: https://github.com/OSC/ood-dashboard/compare/v1.32.0...HEAD
+[1.32.0]: https://github.com/OSC/ood-dashboard/compare/v1.31.0...v1.32.0
+[1.31.0]: https://github.com/OSC/ood-dashboard/compare/v1.30.3...v1.31.0
+[1.30.3]: https://github.com/OSC/ood-dashboard/compare/v1.30.2...v1.30.3
+[1.30.2]: https://github.com/OSC/ood-dashboard/compare/v1.30.1...v1.30.2
+[1.30.1]: https://github.com/OSC/ood-dashboard/compare/v1.30.0...v1.30.1
+[1.30.0]: https://github.com/OSC/ood-dashboard/compare/v1.29.0...v1.30.0
+[1.29.0]: https://github.com/OSC/ood-dashboard/compare/v1.28.0...v1.29.0
 [1.28.0]: https://github.com/OSC/ood-dashboard/compare/v1.27.1...v1.28.0
 [1.27.2]: https://github.com/OSC/ood-dashboard/compare/v1.27.1...v1.27.2
 [1.27.1]: https://github.com/OSC/ood-dashboard/compare/v1.27.0...v1.27.1
