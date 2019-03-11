@@ -53,6 +53,10 @@
 
   <div class="container content" role="main">
 
+    <% if Configuration.rss_announcements_url %>
+      <div class="rss_announcements" data-url="<%= Configuration.rss_announcements_url %>"></div>
+    <% end %>
+    
     <% @announcements.select(&:valid?).each do |announcement| %>
       <div class="alert alert-<%= announcement.type %> announcement" role="alert">
         <%= raw OodAppkit.markdown.render(announcement.msg) %>
