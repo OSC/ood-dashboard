@@ -54,7 +54,7 @@
     <link rel="apple-touch-icon" sizes="152x152" type="image/png" href="app/images/icons/novnc-152x152.png">
 
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="app/styles/base.css" />
+    <link rel="stylesheet" href="app/styles/base.css?v=1" />
 
     <!--
     <script type='text/javascript'
@@ -268,15 +268,16 @@
     <!-- Status Dialog -->
     <div id="noVNC_status"></div>
 
-    <!-- Connect button -->
     <div class="noVNC_center">
         <div id="noVNC_connect_dlg">
             <div class="noVNC_logo" translate="no"><span>no</span>VNC</div>
-            <div id="noVNC_connect_button"><div>
-                <img src="app/images/connect.svg"> Connect
+            <div id="safe_to_close_notification" onclick="window.close();"><div>
+                Your VNC session has ended. It is safe to close this window.
             </div></div>
         </div>
     </div>
+    <!-- former Connect Button -->
+    <div id="noVNC_connect_button" style="display: none !important;"></div>
 
     <!-- Password Dialog -->
     <div class="noVNC_center noVNC_connect_layer">

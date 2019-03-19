@@ -900,3 +900,30 @@ select:active {
     font-size: 90px;
   }
 }
+
+/* ----------------------------------------
+ * Site Specific Customizations
+ * ----------------------------------------
+ */
+
+#safe_to_close_notification div {
+  margin: 2px;
+  padding: 5px 30px;
+  border: 1px solid rgb(83, 99, 122);
+  border-bottom-width: 1px;
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: linear-gradient(to top, rgb(110, 132, 163), rgb(99, 119, 147));
+  vertical-align: middle;
+}
+
+#safe_to_close_notification {
+  cursor: pointer;
+  padding: 10px;
+  color: white;
+  background-color: rgb(110, 132, 163);
+  border-radius: 12px;
+  text-align: center;
+  font-size: 20px;
+  box-shadow: 6px 6px 0px rgba(0, 0, 0, 0.5);
+}
