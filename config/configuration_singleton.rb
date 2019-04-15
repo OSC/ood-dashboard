@@ -186,6 +186,10 @@ class ConfigurationSingleton
 
     Pathname.new(root).expand_path
   end
+  
+  def rss_announcements_url
+    ENV['OOD_RSS_ANNOUNCEMENTS_URL']
+  end
 
   def locale
     (ENV['OOD_LOCALE'] || I18n.default_locale).to_sym
@@ -232,4 +236,5 @@ class ConfigurationSingleton
   def to_bool(value)
     ! FALSE_VALUES.include?(value)
   end
+  
 end

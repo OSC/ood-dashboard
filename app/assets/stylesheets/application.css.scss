@@ -85,6 +85,10 @@ pre.motd-monospaced {
   white-space: pre-wrap;
 }
 
+.rss_announcements {
+  white-space: pre-line;
+}
+
 // Add branded panels
 .panel-ood-blue {
   @include panel-variant($ood-blue, $ood-white, $ood-blue, $ood-blue);
