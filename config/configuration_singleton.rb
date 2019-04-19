@@ -199,6 +199,10 @@ class ConfigurationSingleton
     @external_link_target ||= (to_bool(ENV['OOD_DASHBOARD_OPEN_EXTERNAL_LINKS_NEW_WINDOW']) ? "_blank" : "_self")
   end
 
+  def open_link_in_new_window?
+    to_bool(ENV['OOD_DASHBOARD_OPEN_EXTERNAL_LINKS_NEW_WINDOW'])
+  end
+
   def internal_link_target
     @internal_link_target ||= (to_bool(ENV['OOD_DASHBOARD_OPEN_LINKS_NEW_WINDOW']) ? "_blank" : "_self")
   end

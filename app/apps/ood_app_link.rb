@@ -13,7 +13,7 @@ class OodAppLink
     @url         = config.fetch(:url, "").to_s
     @icon_uri    = URI(config.fetch(:icon_uri, "fas://cog").to_s)
     @caption     = config.fetch(:caption, nil)
-    @new_tab     = (Configuration.external_link_target == '_blank')
+    @new_tab     = !!config.fetch(:new_tab, true)
   end
 
   def new_tab?
