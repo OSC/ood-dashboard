@@ -195,6 +195,14 @@ class ConfigurationSingleton
     Pathname.new(ENV['OOD_LOCALES_ROOT'] || "/etc/ood/config/locales")
   end
 
+  def external_link_target
+    @external_link_target ||= (to_bool(ENV['OOD_DASHBOARD_OPEN_EXTERNAL_LINKS_NEW_WINDOW']) ? "_blank" : "_self")
+  end
+
+  def internal_link_target
+    @internal_link_target ||= (to_bool(ENV['OOD_DASHBOARD_OPEN_LINKS_NEW_WINDOW']) ? "_blank" : "_self")
+  end
+
   private
 
   # The environment

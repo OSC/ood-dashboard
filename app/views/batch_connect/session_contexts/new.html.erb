@@ -25,7 +25,7 @@
             data_link_tag: link_to(
               t('dashboard.batch_connect_sessions_staged_root'),
               OodAppkit.files.url(path: @session.staged_root).to_s,
-              target: "_blank")
+              target: Configuration.external_link_target)
             )
       %>
     </p>
@@ -68,7 +68,7 @@
                   OodAppkit.files.url(
                     path: BatchConnect::Session.dataroot(@app.token)
                   ).to_s,
-                  target: "_blank")
+                  target: Configuration.external_link_target)
                 )
           %>
         </p>

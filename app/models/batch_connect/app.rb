@@ -109,8 +109,7 @@ module BatchConnect
         description: description,
         url: Rails.application.routes.url_helpers.new_batch_connect_session_context_path(token: token),
         icon_uri: ood_app.icon_uri,
-        caption: ood_app.caption,
-        new_tab: false
+        caption: ood_app.caption
       )
     end
 

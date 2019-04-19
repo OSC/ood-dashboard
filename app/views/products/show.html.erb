@@ -76,8 +76,8 @@
     <%= command_btn(title: "Rebuild App", key: "rebuild_passenger_rails_app", display: "RAILS_ENV=production bundle install --path=vendor/bundle && RAILS_ENV=production bin/rake assets:clobber && RAILS_ENV=production bin/rake assets:precompile && RAILS_ENV=production bin/rake tmp:clear && mkdir -p tmp && touch tmp/restart.txt", help: "Performs Bundle Install, Precompile Assets, and Restart App", color: "primary") if @type == :usr && @product.passenger_rails_app? %>
   </div><!-- /.col-md-2 -->
   <div class="col-md-2 col-xs-6">
-    <%= link_to 'Shell', OodAppkit.shell.url(host: ENV['OOD_DEV_SSH_HOST'], path: @product.router.path.realdirpath).to_s, target: '_blank', class: 'btn btn-default btn-block' %>
-    <%= link_to 'Files', OodAppkit.files.url(path: @product.router.path.realdirpath).to_s, target: '_blank', class: 'btn btn-default btn-block' %>
+    <%= link_to 'Shell', OodAppkit.shell.url(host: ENV['OOD_DEV_SSH_HOST'], path: @product.router.path.realdirpath).to_s, target: Configuration.external_link_target, class: 'btn btn-default btn-block' %>
+    <%= link_to 'Files', OodAppkit.files.url(path: @product.router.path.realdirpath).to_s, target: Configuration.external_link_target, class: 'btn btn-default btn-block' %>
   </div><!-- /.col-md-2 -->
 
 </div><!-- /.row -->
@@ -139,7 +139,7 @@
   <div class="col-md-offset-2 col-md-10 col-sm-12 col-xs-12">
     <div class="page-header">
       <h3>
-        <%= link_to @product.readme.title, @product.readme.edit_url.to_s, target: '_blank', title: "Edit #{@product.readme.title}", style: "color: inherit; text-decoration: inherit;" %>
+        <%= link_to @product.readme.title, @product.readme.edit_url.to_s, target: Configuration.external_link_target, title: "Edit #{@product.readme.title}", style: "color: inherit; text-decoration: inherit;" %>
       </h3>
     </div>
     <%= @product.readme.html %>
