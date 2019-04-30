@@ -69,7 +69,7 @@ class OodApp
           url: OodAppkit::Urls::Files.new(base_url: url).url(path: Dir.home),
           icon_uri: "fas://home",
           caption: caption,
-          new_tab: true
+          new_tab: Configuration.open_link_in_new_window?
         )
       ].concat(
         OodFilesApp.new.favorite_paths.map do |path|
@@ -79,7 +79,7 @@ class OodApp
             url: OodAppkit::Urls::Files.new(base_url: url).url(path: path),
             icon_uri: "fas://folder",
             caption: caption,
-            new_tab: true
+            new_tab: Configuration.open_link_in_new_window?
           )
         end
       )
@@ -98,7 +98,7 @@ class OodApp
             url: OodAppkit::Urls::Shell.new(base_url: url).url,
             icon_uri: "fas://terminal",
             caption: caption,
-            new_tab: true
+            new_tab: Configuration.open_link_in_new_window?
           )
         ]
       else
@@ -109,7 +109,7 @@ class OodApp
             url: OodAppkit::Urls::Shell.new(base_url: url).url(host: cluster.login.host),
             icon_uri: "fas://terminal",
             caption: caption,
-            new_tab: true
+            new_tab: Configuration.open_link_in_new_window?
           )
         end.sort_by { |lnk| lnk.title }
       end
@@ -123,7 +123,7 @@ class OodApp
           url: app_path(name, type, owner),
           icon_uri: icon_uri,
           caption: caption,
-          new_tab: true
+          new_tab: Configuration.open_link_in_new_window?
         )
       ]
     end

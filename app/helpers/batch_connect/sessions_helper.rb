@@ -97,7 +97,7 @@ module BatchConnect::SessionsHelper
         link_to(
           session.id,
           OodAppkit.files.url(path: session.staged_root).to_s,
-          target: "_blank"
+          target: Configuration.internal_link_target
         )
       )
     end

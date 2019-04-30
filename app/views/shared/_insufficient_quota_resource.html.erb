@@ -1,6 +1,6 @@
 <h4>
   <%= t('dashboard.quota_warning_prefix_html') %>
-  <%= link_to OodAppkit.files.url(path: quota.path).to_s, class: "text-danger", target: "_blank" do %>
+  <%= link_to OodAppkit.files.url(path: quota.path).to_s, class: "text-danger", target: Configuration.external_link_target do %>
     <strong><%= quota.path %></strong>
   <%- end -%>
   <small class="pull-right hidden-xs hidden-sm">
