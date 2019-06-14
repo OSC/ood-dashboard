@@ -66,21 +66,7 @@
 
     <!-- begin scripts -->
 <script src="app.js"></script>
-<script type="module">
-    import RFB from "./core/rfb.js"
-    
-    (function() {
-        var rfb = new RFB(document.body, location.href + '/websockify')
-        
-        if (navigator.clipboard) {
-            rfb.addEventListener('clipboard', function(e) {
-                console.log("noVNC clipboard event");
-            })
-        } else {
-            console.log("No support!")
-        }
-    })();
-</script>
+<script src="/app/copypaste.js"></script>
 <!-- end scripts -->
 </head>
 
