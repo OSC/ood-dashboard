@@ -1,19 +1,9 @@
-<%= render partial: 'shared/welcome' %>
-
-<br>
-
-<%# This assumes @motd_file responds to `to_partial_path` %>
-<%= render @motd if @motd %>
-
-<!--
-TODO: add getting started
 <div class="row">
-  <div class="col-md-8">
-    <h3>Getting Started</h3>
-    <hr>
+  <div class="col-md-9">
+    <%= render partial: 'shared/welcome' %>
   </div>
-  <div class="col-md-4">
-    <%# render partial: "motd", locals: { motd: MotdFile.new } %>
+  <div class="col-md-3">
+    <%# This assumes @motd_file responds to `to_partial_path` %>
+    <%= render @motd if @motd %>
   </div>
 </div>
--->
