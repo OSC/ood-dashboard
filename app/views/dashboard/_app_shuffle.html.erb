@@ -1,3 +1,19 @@
+Filters:
+<div id="filters" class="btn-group" data-toggle="buttons" style="margin-bottom: 20px">
+    <label class="btn btn-primary">
+      <input name="filter" type="radio" autocomplete="off" value="" checked> All
+    </label>
+    <label class="btn btn-primary">
+      <input name="filter" type="radio" autocomplete="off" value="system"> Accessibility
+    </label>
+    <label class="btn btn-primary">
+      <input name="filter" type="radio" autocomplete="off" value="servers"> Servers
+    </label>
+    <label class="btn btn-primary">
+      <input name="filter" type="radio" autocomplete="off" value="guis"> GUIs
+    </label>
+</div>
+<br>
 
 <div class="row">
   <div class="col-xs-12 col-sm-9">
@@ -8,7 +24,7 @@
         <% @nav_groups.each do |group| %>
           <% group.apps.each do |app| %>
             <% app.links.each do |link| %>
-              <div class="grid__brick col-xs-6 col-sm-4">
+              <div class="grid__brick col-xs-6 col-sm-4" data-groups='["<%= app.subcategory.present? ? app.subcategory.downcase : "system" %>"]'>
                 <div class="grid__brick-inner">
                   <div class="table-center-wrap">
     <%=
@@ -57,6 +73,17 @@
 window.shuffleInstance = new window.Shuffle(document.getElementById('grid'), {
   itemSelector: '.grid__brick',
   sizer: '.my-sizer-element',
+});
+
+$('input').change(function(){
+    var val = $('input:checked').val();
+    if(val == ""){
+      shuffleInstance.filter(Shuffle.ALL_ITEMS)
+    }
+    else{
+    console.log(val);
+      shuffleInstance.filter(val);
+    }
 });
 </script>
 
