@@ -4,207 +4,47 @@
     <div class="row">
 
       <div id="grid" class="my-shuffle-container">
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  1
+
+        <% @nav_groups.each do |group| %>
+          <% group.apps.each do |app| %>
+            <% app.links.each do |link| %>
+              <div class="grid__brick col-xs-6 col-sm-4">
+                <div class="grid__brick-inner">
+                  <div class="table-center-wrap">
+    <%=
+      link_to(
+        link.url.to_s,
+        class: "thumbnail app",
+        data: {
+          toggle: "popover",
+          content: manifest_markdown(link.description),
+          html: true,
+          trigger: "hover",
+          title: link.title,
+          container: "body"
+        },
+        target: link.new_tab? ? "_blank" : nil,
+      ) do
+    %>
+      <div class="center-block" style="text-align: center">
+        <%= icon_tag(link.icon_uri) %>
+        <%= content_tag(:p, link.title) %>
+        <%#
+          content_tag(
+            :p,
+            content_tag(:span, link.caption),
+            class: "text-muted"
+          ) if link.caption
+        %>
+      </div>
+    <% end %>
+                  </div>
                 </div>
               </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  2
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  3
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  4
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  5
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  6
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  7
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  8
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  9
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  10
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  11
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  12
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  13
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  14
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  15
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  16
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  17
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  18
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  19
-                </div>
-              </div>
-            </div>
-          </div>
-        
-          <div class="grid__brick col-xs-6 col-sm-4">
-            <div class="grid__brick-inner">
-              <div class="table-center-wrap">
-                <div class="table-center">
-                  20
-                </div>
-              </div>
-            </div>
-          </div>
-        
+           <% end %>
+          <% end %>
+        <% end %>
+
         <div class="col-xs-1 my-sizer-element"></div>
       </div>
     </div>
