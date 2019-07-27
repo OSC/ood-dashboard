@@ -4,6 +4,9 @@ Filters:
       <input name="filter" type="radio" autocomplete="off" value="" checked> All
     </label>
     <label class="btn btn-primary">
+      <input name="filter" type="radio" autocomplete="off" value="shared"> Shared
+    </label>
+    <label class="btn btn-primary">
       <input name="filter" type="radio" autocomplete="off" value="system"> Accessibility
     </label>
     <label class="btn btn-primary">
@@ -24,9 +27,9 @@ Filters:
         <% @nav_groups.each do |group| %>
           <% group.apps.each do |app| %>
             <% app.links.each do |link| %>
-              <div class="grid__brick col-xs-6 col-sm-4" data-groups='["<%= app.subcategory.present? ? app.subcategory.downcase : "system" %>"]'>
+              <div class="grid__brick col-xs-6 col-sm-4" data-groups='["<%= app.subcategory.present? ? app.subcategory.downcase : (app.type == :usr ? "shared" : "system") %>"]' >
                 <div class="grid__brick-inner">
-                  <div class="table-center-wrap">
+                  <div class="table-center-wrap" <%=raw 'style="border: 2px solid #005f85"' if app.type == :usr %>>
     <%=
       link_to(
         link.url.to_s,

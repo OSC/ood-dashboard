@@ -25,8 +25,8 @@ Rails.application.routes.draw do
     get "apps/restart" => "apps#restart"
     get "apps/featured" => "apps#featured"
 
-    root "apps#featured"
-  else
+    # root "apps#featured"
+  # else
     root "dashboard#index"
   end
 
