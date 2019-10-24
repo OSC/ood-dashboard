@@ -1,3 +1,12 @@
+GIT
+  remote: https://github.com/OSC/ood_core.git
+  revision: 6e3da4158c793701478967ec98f2e3af5f3a56ec
+  branch: fork-adapter
+  specs:
+    ood_core (0.9.3)
+      ffi (~> 1.9, >= 1.9.6)
+      ood_support (~> 0.0.2)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -67,7 +76,7 @@ GEM
       i18n
     erubis (2.7.0)
     execjs (2.7.0)
-    ffi (1.10.0)
+    ffi (1.11.1)
     font-awesome-sass (5.0.9)
       sass (>= 3.2)
     globalid (0.4.2)
@@ -114,9 +123,6 @@ GEM
       ood_core (~> 0.1)
       rails (~> 4.0, >= 4.0.7)
       redcarpet (~> 3.2)
-    ood_core (0.9.3)
-      ffi (~> 1.9, >= 1.9.6)
-      ood_support (~> 0.0.2)
     ood_support (0.0.3)
     pbs (2.2.1)
       ffi (~> 1.9, >= 1.9.6)
@@ -216,7 +222,7 @@ DEPENDENCIES
   local_time (~> 1.0.3)
   mocha (~> 1.1)
   ood_appkit (~> 1.0)
-  ood_core (~> 0.1)
+  ood_core!
   ood_support (~> 0.0.2)
   pbs (~> 2.2.1)
   rails (= 4.2.11)
@@ -229,4 +235,4 @@ DEPENDENCIES
   uglifier (>= 1.3.0)
 
 BUNDLED WITH
-   1.13.7
+   1.16.1

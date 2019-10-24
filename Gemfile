@@ -65,5 +65,5 @@ gem 'local_time', '~> 1.0.3'
 # OOD specific gems
 gem 'ood_support', '~> 0.0.2'
 gem 'ood_appkit', '~> 1.0'
-gem 'ood_core', '~> 0.1'
+gem 'ood_core', git: 'https://github.com/OSC/ood_core.git', branch: 'fork-adapter'
 gem 'pbs', '~> 2.2.1'
