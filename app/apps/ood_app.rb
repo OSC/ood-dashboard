@@ -25,12 +25,12 @@ class OodApp
     manifest.valid?
   end
 
-  def invalid_batch_connect_app?
-    batch_connect_app? && batch_connect.sub_app_list.none?(&:valid?)
+  def authorized_batch_connect_app?
+    batch_connect_app? && batch_connect.sub_app_list.none?(&:authorized?)
   end
 
   def should_appear_in_nav?
-    manifest? && ! (invalid_batch_connect_app? || category.empty?)
+    manifest? && ! (authorized_batch_connect_app? || category.empty?)
   end
 
   def initialize(router)
@@ -114,7 +114,7 @@ class OodApp
         end.sort_by { |lnk| lnk.title }
       end
     elsif role == "batch_connect"
-      batch_connect.sub_app_list.select(&:valid?).map(&:link)
+      batch_connect.sub_app_list.select(&:authorized?).map(&:link)
     else
       [
         OodAppLink.new(
@@ -145,7 +145,7 @@ class OodApp
   end
 
   def batch_connect
-    @batch_connect ||= BatchConnect::App.new(router: router)
+    @batch_connect ||= BatchConnect::AppStub.new(router: router)
   end
 
   def has_gemfile?

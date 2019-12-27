@@ -42,7 +42,6 @@ tags
 !/tmp/.keep
 /public/assets
 .env.local
-/config/initializers/ood.rb
 
 # Ignore staged app
 /vendor/my_app
